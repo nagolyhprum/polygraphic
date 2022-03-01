@@ -2,6 +2,7 @@ import { code, execute, set } from "polylingual";
 import { Adapter, Component, ComponentBoxProps, ComponentConfig, ComponentEvents, ComponentFromConfig, Data, GlobalState, Tag, Unarray, UnwrapBoxProp } from "./types";
 
 export * from "polylingual";
+export * from "./types";
 
 export const MATCH = -1;
 export const WRAP = -2;

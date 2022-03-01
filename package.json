@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/nagolyhprum/polygraphic#readme",
   "dependencies": {
-    "polylingual": "^0.5.0"
+    "polylingual": "^0.6.0"
   },
   "devDependencies": {
     "@parcel/packager-ts": "^2.3.2",

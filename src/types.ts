@@ -1,4 +1,4 @@
-import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON } from "polylingual";
+import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage } from "polylingual";
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
@@ -14,26 +14,26 @@ export type TagProps = Record<string, string> & {
     style : Record<string, string>
 }
 
-type PolygraphicSocket = {
+export type PolygraphicSocket = {
     on : (name : string, callback : (config : { data : any }) => void) => void
 }
 
-type PolygraphicToast = {
-    push : () => void
+export type PolygraphicToast = {
+    push : (text : string) => void
 }
 
-type PolygraphicNavigation = {
-    push : () => void
+export type PolygraphicNavigation = {
+    push : (name : string) => void
     pop : () => void
-    clear : () => void
+    clear : (name : string) => void
 }
 
-type PolygraphicSpeech = {
-    speak : () => void
-    listen : () => void
+export type PolygraphicSpeech = {
+    speak : (text : string) => void
+    listen : (callback : () => ProgrammingLanguage) => void
 }
 
-type PolygraphicPicker = {
+export type PolygraphicPicker = {
     date : () => void
 }
 
@@ -110,7 +110,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     src?: string
 }
 
-type Animation = {
+export type Animation = {
     name : "opacity" | "left" | "right"
     start : number
     direction : "in" | "out"
