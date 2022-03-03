@@ -189,6 +189,7 @@ export const onDragStart = event("onDragStart");
 export const onDragEnd = event("onDragEnd");
 export const onDrop = event("onDrop");
 export const onBack = event("onBack");
+export const onChange = event("onChange");
 
 export const adapters = <Global extends GlobalState, Local>(
 	adapters : Adapter<Global>

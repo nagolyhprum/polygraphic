@@ -64,6 +64,7 @@ export type ComponentEvents<Global extends GlobalState, Local> = {
     onInit?: Array<(event : EventConfig<Global, Local, null>) => void>
     onInput?: Array<(event : EventConfig<Global, Local, string>) => void>
     onSelect?: Array<(event : EventConfig<Global, Local, string>) => void>
+    onChange?: Array<(event : EventConfig<Global, Local, boolean>) => void>
 }
 
 export type BoxProp<Type> = {
