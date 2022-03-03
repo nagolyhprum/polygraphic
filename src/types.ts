@@ -2,7 +2,7 @@ import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, Programmin
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
-export type Tag = "row" | "root" | "column" | "text" | "button" | "scrollable" | "stack" | "input" | "select" | "option"
+export type Tag = "row" | "root" | "column" | "text" | "button" | "scrollable" | "stack" | "input" | "select" | "option" | "image" | "checkbox"
 
 export type GlobalState = {
     ui : {
@@ -108,6 +108,8 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     size?: number
     color?: string
     src?: string
+    round?: number
+    clip?: boolean
 }
 
 export type Animation = {

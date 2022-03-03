@@ -140,9 +140,13 @@ export const text = tag("text");
 export const stack = tag("stack");
 export const input = tag("input");
 export const select = tag("select");
+export const image = tag("image");
 export const option = <Global extends GlobalState, Local>(
 	props : Array<string | ComponentFromConfig<Global, Local>>
 ) => tag("option")(WRAP, WRAP, props);
+export const checkbox = <Global extends GlobalState, Local>(
+	props : Array<string | ComponentFromConfig<Global, Local>>
+) => tag("checkbox")(WRAP, WRAP, props);
 
 // PROPS
 
@@ -155,6 +159,9 @@ export const crossAxisAlignment = setProperty("crossAxisAlignment");
 export const size = setProperty("size");
 export const color = setProperty("color");
 export const src = setProperty("src");
+export const round = setProperty("round");
+export const placeholder = setProperty("placeholder");
+export const clip = setProperty("clip");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
@@ -340,6 +347,10 @@ export const screen = <Global extends GlobalState>(
 ) => stack<Global, Data & {
 	animation : Animation
 }>(MATCH, MATCH, [
+	position({
+		top : 0,
+		left : 0
+	}),
 	observe(({
 		event,
 		local
@@ -355,9 +366,15 @@ export const modal = <Global extends GlobalState>(
 	child : ComponentFromConfig<Global, Data & {
 		animation : Animation
 	}>
-) => stack<Global, Data & {
+) => scrollable<Global, Data & {
 	animation : Animation
 }>(MATCH, MATCH, [
+	padding(16),
+	position({
+		top : 0,
+		left : 0
+	}),
+	background("#000000aa"),
 	observe(({
 		event,
 		local
@@ -365,6 +382,10 @@ export const modal = <Global extends GlobalState>(
 		direction : local.animation.direction,
 		name : "opacity",
 		start : local.animation.start,
-	})),
-	child,
+	})),	
+	stack(MATCH, WRAP, [
+		background("white"),
+		round(4),
+		child,
+	])
 ]);
