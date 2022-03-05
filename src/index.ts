@@ -255,7 +255,7 @@ export const test = <Global extends GlobalState, Local>(
 	component : ComponentFromConfig<Global, Local>,
 	global : Global,
 	local : Local,
-	mocks = {}
+	mocks : Record<string, unknown> = {}
 ) => {
 	const root = component({
 		global,
