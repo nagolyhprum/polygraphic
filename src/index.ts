@@ -1,5 +1,21 @@
-import { code, execute, set } from "polylingual";
-import { Adapter, Component, ComponentBoxProps, ComponentConfig, ComponentEvents, ComponentFromConfig, Data, GlobalState, Tag, Unarray, UnwrapBoxProp } from "./types";
+import { code, execute, ProgrammingLanguage, set } from "polylingual";
+import { EventConfig } from "../dist";
+import { 
+	Animation,
+	Alignment,
+	Adapter, 
+	Component, 
+	ComponentBoxProps, 
+	ComponentConfig, 
+	ComponentEvents, 
+	ComponentFromConfig, 
+	Data, 
+	GlobalState, 
+	Tag, 
+	Unarray, 
+	UnwrapBoxProp,
+	Border
+} from "./types";
 
 export * from "polylingual";
 export * from "./types";
@@ -46,10 +62,13 @@ const applyProps = <Global extends GlobalState, Local>(
 	return ret;
 };
 
-const setProperty = <Global extends GlobalState, Local, Key extends keyof Component<Global, Local>>(
-	name : Key
-) => <Global extends GlobalState, Local>(
-		value : Component<Global, Local>[Key]
+const setProperty = <
+	Key extends keyof Component<GlobalState, GlobalState>,
+	Value extends Component<GlobalState, GlobalState>[Key]
+>(
+		name : Key
+	) => <Global extends GlobalState, Local>(
+		value : Value
 	) : ComponentFromConfig<Global, Local> => ({
 			parent
 		}) => {
@@ -127,7 +146,7 @@ const box = <Key extends keyof ComponentBoxProps, Type extends UnwrapBoxProp<Com
 
 export const margin = box("margin");
 export const padding = box("padding");
-export const border = box("border");
+export const border = box<"border", Border | undefined>("border");
 export const position = box("position");
 
 // TAGS
@@ -153,9 +172,9 @@ export const checkbox = <Global extends GlobalState, Local>(
 export const background = setProperty("background");
 export const grow = setProperty("grow");
 export const value = setProperty("value");
-export const animation = setProperty("animation");
-export const mainAxisAlignment = setProperty("mainAxisAlignment");
-export const crossAxisAlignment = setProperty("crossAxisAlignment");
+export const animation = setProperty<"animation", Animation>("animation");
+export const mainAxisAlignment = setProperty<"mainAxisAlignment", Alignment>("mainAxisAlignment");
+export const crossAxisAlignment = setProperty<"crossAxisAlignment", Alignment>("crossAxisAlignment");
 export const size = setProperty("size");
 export const color = setProperty("color");
 export const src = setProperty("src");
@@ -179,17 +198,39 @@ export const id = <Global extends GlobalState, Local>(id : string) : ComponentFr
 
 // EVENTS
 
-export const observe = event("observe");
-export const onClick = event("onClick");
-export const onEnter = event("onEnter");
-export const onInit = event("onInit");
-export const onInput = event("onInput");
-export const onSelect = event("onSelect");
-export const onDragStart = event("onDragStart");
-export const onDragEnd = event("onDragEnd");
-export const onDrop = event("onDrop");
-export const onBack = event("onBack");
-export const onChange = event("onChange");
+export const observe : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("observe");
+export const onClick : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onClick");
+export const onEnter : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onEnter");
+export const onInit : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onInit");
+export const onInput : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, string>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onInput");
+export const onSelect : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, string>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onSelect");
+export const onDragStart : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onDragStart");
+export const onDragEnd : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onDragEnd");
+export const onDrop : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onDrop");
+export const onBack : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onBack");
+export const onChange : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, boolean>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onChange");
 
 export const adapters = <Global extends GlobalState, Local>(
 	adapters : Adapter<Global>

@@ -55,7 +55,7 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
 
 export type ComponentEvents<Global extends GlobalState, Local> = {
     observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => void>
-    onBack?: Array<(event : EventConfig<Global, Local, null>) => boolean>
+    onBack?: Array<(event : EventConfig<Global, Local, null>) => void>
     onClick?: Array<(event : EventConfig<Global, Local, null>) => void>
     onDragStart?: Array<(event : EventConfig<Global, Local, null>) => void>
     onDragEnd?: Array<(event : EventConfig<Global, Local, null>) => void>
