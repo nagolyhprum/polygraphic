@@ -39,7 +39,7 @@ export type PolygraphicPicker = {
 
 export type EventConfig<Global extends GlobalState, Local, Type> = {
     setTimeout: (callback : () => ProgrammingLanguage) => void
-    Date : Date
+    Date : DateConstructor
     local : Local
     global : Global
     event : Type
