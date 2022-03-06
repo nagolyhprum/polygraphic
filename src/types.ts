@@ -1,4 +1,4 @@
-import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage } from "polylingual";
+import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage, ProgrammingDate, ProgrammingTimeout } from "polylingual";
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
@@ -38,8 +38,8 @@ export type PolygraphicPicker = {
 }
 
 export type EventConfig<Global extends GlobalState, Local, Type> = {
-    setTimeout: (callback : () => ProgrammingLanguage, ms : number) => void
-    Date : DateConstructor
+    setTimeout: ProgrammingTimeout
+    Date : ProgrammingDate
     local : Local
     global : Global
     event : Type
