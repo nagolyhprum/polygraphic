@@ -210,12 +210,6 @@ export const onEnter : <Global extends GlobalState, Local>(
 export const onInit : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onInit");
-export const onInput : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, string>) => ProgrammingLanguage
-) => ComponentFromConfig<Global, Local> = event("onInput");
-export const onSelect : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, string>) => ProgrammingLanguage
-) => ComponentFromConfig<Global, Local> = event("onSelect");
 export const onDragStart : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onDragStart");
@@ -229,8 +223,19 @@ export const onBack : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onBack");
 export const onChange : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, boolean>) => ProgrammingLanguage
+	callback : (event : EventConfig<Global, Local, string | boolean>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onChange");
+
+export const bind = <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, unknown>) => string | boolean
+) => props<Global, Local>([
+	onChange(
+		config => set(callback(config), config.event)
+	),
+	observe(
+		config => set(config.event.value, callback(config))
+	),
+]);
 
 export const adapters = <Global extends GlobalState, Local>(
 	adapters : Adapter<Global>
