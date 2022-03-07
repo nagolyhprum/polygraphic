@@ -437,3 +437,11 @@ export const modal = <Global extends GlobalState>(
 		child,
 	])
 ]);
+
+export const fab = <Global extends GlobalState, Local>(contents : Array<string | ComponentFromConfig<Global, Local>>) => 
+	button<Global, Local>(56, 56, [
+		shadow(true),
+		padding(8),
+		round(28),
+		props(contents)
+	]);
