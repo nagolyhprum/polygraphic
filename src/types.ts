@@ -37,6 +37,11 @@ export type PolygraphicPicker = {
     date : () => void
 }
 
+export type PolygraphicMoment = (input : number) => {
+    isSame : (input : number, unit : string) => boolean
+    format : (format : string) => string
+}
+
 export type EventConfig<Global extends GlobalState, Local, Type> = {
     setTimeout: ProgrammingTimeout
     Date : ProgrammingDate
@@ -48,11 +53,13 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
     console : ProgrammingConsole
     fetch : ProgrammingFetch
     JSON : ProgrammingJSON
+
     socket : PolygraphicSocket
     navigation : PolygraphicNavigation
     toast : PolygraphicToast
     speech : PolygraphicSpeech
     picker : PolygraphicPicker
+    moment : PolygraphicMoment
 }
 
 export type ComponentEvents<Global extends GlobalState, Local> = {
@@ -93,7 +100,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     width : number
     height : number
     name : Tag
-    focus?: any
+    focus?: boolean
     enabled?: boolean
     visible?: boolean
     placeholder? : string
@@ -104,7 +111,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     grow?: boolean
     adapters?: Adapter<Global>
     data?: Data[]
-    value?: any
+    value?: string | boolean
     animation?: Animation
     mainAxisAlignment?: Alignment
     crossAxisAlignment?: Alignment
@@ -113,6 +120,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     src?: string
     round?: number
     clip?: boolean
+    shadow?: boolean
 }
 
 export type Animation = {

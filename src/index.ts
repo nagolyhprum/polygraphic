@@ -181,6 +181,7 @@ export const src = setProperty("src");
 export const round = setProperty("round");
 export const placeholder = setProperty("placeholder");
 export const clip = setProperty("clip");
+export const shadow = setProperty("shadow");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
