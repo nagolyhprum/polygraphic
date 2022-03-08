@@ -184,6 +184,7 @@ export const round = setProperty("round");
 export const placeholder = setProperty("placeholder");
 export const clip = setProperty("clip");
 export const shadow = setProperty("shadow");
+export const markdown = setProperty("markdown");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
@@ -449,9 +450,9 @@ export const fab = <Global extends GlobalState, Local>(contents : Array<string |
 	]);
 
 export const functions = <T>(
-	callback : (event : EventConfig<any, any, unknown>) => T
+	callback : (event : EventConfig<any, any, Component<any, any>>) => T
 ) : T => {
-	return polylingualFunctions(callback, {
+	return polylingualFunctions(callback as any, {
 		local: {},
 		global : {}, 
 		event: {}, 
