@@ -492,7 +492,11 @@ export const navigation = functions(({
 	_ : ProgrammingUnderscore
 	Date : ProgrammingDate
 }) => ({
-	pushRoute: (route : string) => set(global.routes, _.concat(global.routes, [{
+	pushRoute: ({
+		route
+	} : {
+		route : string
+	}) => set(global.routes, _.concat(global.routes, [{
 		id : route,
 		adapter : route,
 		animation : {
