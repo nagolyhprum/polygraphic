@@ -1,4 +1,4 @@
-import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq } from "polylingual";
+import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq, ProgrammingDate } from "polylingual";
 import { EventConfig } from "../dist";
 import { 
 	Animation,
@@ -484,11 +484,13 @@ export const functions = <T>(
 export const navigation = functions(({
 	setTimeout,
 	global,
-	_
+	_,
+	Date
 } : {
 	setTimeout : ProgrammingTimeout
 	global : NavigationState
 	_ : ProgrammingUnderscore
+	Date : ProgrammingDate
 }) => ({
 	pushRoute: (route : string) => set(global.routes, _.concat(global.routes, [{
 		id : route,
