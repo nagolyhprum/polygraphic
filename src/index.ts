@@ -515,6 +515,18 @@ export const navigation = functions(({
 	])
 }));
 
+export const feature = <Global extends GlobalState, Local>({
+	name,
+	component,
+	fallback
+} : {
+	name : string
+	component : ComponentFromConfig<Global, Local>
+	fallback : ComponentFromConfig<Global, Local>
+}) : ComponentFromConfig<Global, Local> => (config) => {
+		return config.global.features?.includes(name) ? component(config) : fallback(config);
+	};
+
 export const router = <Global extends GlobalState & NavigationState>(config : {
 	initial : string
 	adapters : Adapter<Global>

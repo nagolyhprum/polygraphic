@@ -19,9 +19,10 @@ export type Tag =
     
 
 export type GlobalState = {
-    ui : {
+    ui?: {
         [key : string] : any
     }
+    features?: string[]
 }
 
 export type TagProps = Record<string, string> & {
