@@ -502,7 +502,7 @@ export const navigation = functions(({
 			name : "right",
 			start : Date.now()
 		}),
-		setTimeout(() => set(global.routes, global.routes.slice(0, -1)), 300)
+		setTimeout(() => set(global.routes, _.slice(global.routes, 0, -1)), 300)
 	])
 }));
 
