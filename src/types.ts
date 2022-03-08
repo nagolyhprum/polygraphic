@@ -34,8 +34,20 @@ export type PolygraphicSocket = {
 }
 
 export type PolygraphicSpeech = {
-    speak : (text : string) => void
-    listen : (callback : () => ProgrammingLanguage) => void
+    listen : (config : {
+        onResult : (config : {
+            results : Array<{
+                confidence : number
+                transcript : string
+                isFinal : boolean
+            }>
+        }) => ProgrammingLanguage
+        continuous : boolean
+        lang : string
+        interimResults : boolean
+        maxAlternatives : number
+    }) => ProgrammingLanguage
+    speak : (text : string) => ProgrammingLanguage
 }
 
 export type PolygraphicPicker = {
