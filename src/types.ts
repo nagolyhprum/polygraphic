@@ -161,5 +161,5 @@ export type RecursivePartial<T> = {
 }
 
 export type NavigationState = {
-	routes : Data[]
+	routes?: Data[]
 }

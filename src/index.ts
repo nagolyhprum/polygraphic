@@ -1,4 +1,4 @@
-import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq, ProgrammingDate } from "polylingual";
+import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq, ProgrammingDate, declare } from "polylingual";
 import { EventConfig } from "../dist";
 import { 
 	Animation,
@@ -496,7 +496,7 @@ export const navigation = functions(({
 		route
 	} : {
 		route : string
-	}) => set(global.routes, _.concat(global.routes, [{
+	}) => set(global.routes, _.concat(fallback(global.routes, []), [{
 		id : route,
 		adapter : route,
 		animation : {
@@ -505,14 +505,18 @@ export const navigation = functions(({
 			name : "right"
 		}
 	}])),
-	popRoute: () => block([
-		set(symbol(global.routes, sub(global.routes.length, 1)).animation, {
+	popRoute: () => declare(({
+		routes
+	}) => [
+		set(symbol(routes, sub(routes.length, 1)).animation, {
 			direction : "out",
 			name : "right",
 			start : Date.now()
 		}),
-		setTimeout(() => set(global.routes, _.slice(global.routes, 0, -1)), 300)
-	])
+		setTimeout(() => set(global.routes, _.slice(routes, 0, -1)), 300)
+	], {
+		routes : fallback(global.routes, [])
+	})
 }));
 
 export const feature = <Global extends GlobalState, Local>({
