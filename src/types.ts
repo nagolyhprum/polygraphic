@@ -42,10 +42,10 @@ export type PolygraphicSpeech = {
                 isFinal : boolean
             }>
         }) => ProgrammingLanguage
-        continuous : boolean
-        lang : string
-        interimResults : boolean
-        maxAlternatives : number
+        continuous?: boolean
+        lang?: string
+        interimResults?: boolean
+        maxAlternatives?: number
     }) => ProgrammingLanguage
     speak : (text : string) => ProgrammingLanguage
 }
