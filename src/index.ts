@@ -521,8 +521,14 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 	onBack : (event: EventConfig<Global, Global, null>) => ProgrammingLanguage
 }) => stack<Global, Global>(MATCH, MATCH, [
 	funcs(navigation),
+	clip(true),
+	observe(({
+		global,
+		event
+	}) => set(event.data, global.routes)),
 	onInit(({
-		global
+		global,
+		Date
 	}) => condition(
 		eq(fallback(global.routes, []).length, 0), 
 		set(global.routes, [{
