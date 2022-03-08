@@ -2,7 +2,21 @@ import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, Programmin
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
-export type Tag = "row" | "root" | "column" | "text" | "button" | "scrollable" | "stack" | "input" | "select" | "option" | "image" | "checkbox"
+export type Tag = 
+    "button" | 
+    "checkbox" |
+    "column" | 
+    "date" |
+    "image" | 
+    "input" | 
+    "option" | 
+    "root" | 
+    "row" | 
+    "scrollable" | 
+    "select" | 
+    "stack" | 
+    "text"
+    
 
 export type GlobalState = {
     ui : {
@@ -16,16 +30,6 @@ export type TagProps = Record<string, string> & {
 
 export type PolygraphicSocket = {
     on : (name : string, callback : (config : { data : any }) => void) => void
-}
-
-export type PolygraphicToast = {
-    push : (text : string) => void
-}
-
-export type PolygraphicNavigation = {
-    push : (name : string) => void
-    pop : () => void
-    clear : (name : string) => void
 }
 
 export type PolygraphicSpeech = {
@@ -55,8 +59,6 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
     JSON : ProgrammingJSON
 
     socket : PolygraphicSocket
-    navigation : PolygraphicNavigation
-    toast : PolygraphicToast
     speech : PolygraphicSpeech
     picker : PolygraphicPicker
     moment : PolygraphicMoment
@@ -121,6 +123,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     round?: number
     clip?: boolean
     shadow?: boolean
+    declarations?: ProgrammingLanguage[]
 }
 
 export type Animation = {
@@ -162,4 +165,8 @@ export type ComponentProps = {
     width : number
     height : number
     text : string
+}
+
+export type NavigationState = {
+	routes : Data[]
 }

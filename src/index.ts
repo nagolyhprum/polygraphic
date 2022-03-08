@@ -1,4 +1,4 @@
-import { code, execute, ProgrammingLanguage, set } from "polylingual";
+import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, proxy, ProgrammingUnderscore, ProgrammingDate, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq } from "polylingual";
 import { EventConfig } from "../dist";
 import { 
 	Animation,
@@ -14,7 +14,8 @@ import {
 	Tag, 
 	Unarray, 
 	UnwrapBoxProp,
-	Border
+	Border,
+	NavigationState
 } from "./types";
 
 export * from "polylingual";
@@ -72,7 +73,7 @@ const setProperty = <
 	) : ComponentFromConfig<Global, Local> => ({
 			parent
 		}) => {
-			parent[name] = value;
+			parent[name] = value as any;
 			return parent;
 		};
 
@@ -151,6 +152,7 @@ export const position = box("position");
 
 // TAGS
 
+export const date = tag("date");
 export const row = tag("row");
 export const column = tag("column");
 export const button = tag("button");
@@ -445,3 +447,90 @@ export const fab = <Global extends GlobalState, Local>(contents : Array<string |
 		round(28),
 		props(contents)
 	]);
+
+export const functions = <T>(
+	callback : (event : EventConfig<any, any, never>) => T
+) : T => {
+	const dependencies = new Set<string>([]);
+	return polylingualFunctions(callback(proxy({
+		scope : {
+			socket : {
+				on : () => {
+					// DO NOTHING
+				}
+			},
+			speech : {
+				speak : () => {
+					// DO NOTHING
+				},
+				listen : () => {
+					// DO NOTHING
+				}
+			},
+			picker : {
+				date : () => {
+					// DO NOTHING
+				}
+			},
+			moment : () => ({
+				format : () => "",
+				isSame : () => false
+			})
+		},
+		path : [],
+		dependencies
+	})));
+};
+
+export const navigation = functions(({
+	setTimeout,
+	global,
+	_
+} : {
+	setTimeout : ProgrammingTimeout
+	global : NavigationState
+	_ : ProgrammingUnderscore
+}) => ({
+	pushRoute: (route : string) => set(global.routes, _.concat(global.routes, [{
+		id : route,
+		adapter : route,
+		animation : {
+			start : Date.now(),
+			direction : "in",
+			name : "right"
+		}
+	}])),
+	popRoute: () => block([
+		set(symbol(global.routes, sub(global.routes.length, 1)).animation, {
+			direction : "out",
+			name : "right",
+			start : Date.now()
+		}),
+		setTimeout(() => set(global.routes, global.routes.slice(0, -1)), 300)
+	])
+}));
+
+export const router = <Global extends GlobalState & NavigationState>(config : {
+	initial : string
+	adapters : Adapter<Global>
+	onBack : (event: EventConfig<Global, Global, null>) => ProgrammingLanguage
+}) => stack<Global, Global>(MATCH, MATCH, [
+	declare(navigation),
+	onInit(({
+		global
+	}) => condition(
+		eq(fallback(global.routes, []).length, 0), 
+		set(global.routes, [{
+			id : Date.now().toString(16),
+			adapter : config.initial,			
+		}])
+	)),
+	onBack(config.onBack),
+	adapters(config.adapters)
+]);
+
+export const declare = <Global extends GlobalState, Local>(declare : any) : ComponentFromConfig<Global, Local> => (config) => {
+	config.parent.declarations = config.parent.declarations || [];
+	config.parent.declarations.push(declare);
+	return config.parent;
+};
