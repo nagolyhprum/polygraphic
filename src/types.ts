@@ -36,11 +36,11 @@ export type PolygraphicSocket = {
 export type PolygraphicSpeech = {
     listen : (config : {
         onResult : (config : {
-            results : Array<{
+            results : Array<Array<{
                 confidence : number
                 transcript : string
                 isFinal : boolean
-            }>
+            }>>
         }) => ProgrammingLanguage
         continuous?: boolean
         lang?: string
