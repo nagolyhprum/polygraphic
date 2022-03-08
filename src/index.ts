@@ -515,7 +515,7 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 	adapters : Adapter<Global>
 	onBack : (event: EventConfig<Global, Global, null>) => ProgrammingLanguage
 }) => stack<Global, Global>(MATCH, MATCH, [
-	declare(navigation),
+	funcs(navigation),
 	onInit(({
 		global
 	}) => condition(
@@ -529,8 +529,8 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 	adapters(config.adapters)
 ]);
 
-export const declare = <Global extends GlobalState, Local>(declare : any) : ComponentFromConfig<Global, Local> => (config) => {
-	config.parent.declarations = config.parent.declarations || [];
-	config.parent.declarations.push(declare);
+export const funcs = <Global extends GlobalState, Local>(declare : any) : ComponentFromConfig<Global, Local> => (config) => {
+	config.parent.funcs = config.parent.funcs || [];
+	config.parent.funcs.push(declare);
 	return config.parent;
 };

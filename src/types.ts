@@ -123,7 +123,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     round?: number
     clip?: boolean
     shadow?: boolean
-    declarations?: ProgrammingLanguage[]
+    funcs?: ProgrammingLanguage[]
 }
 
 export type Animation = {
