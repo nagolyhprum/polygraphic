@@ -113,7 +113,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     grow?: boolean
     adapters?: Adapter<Global>
     data?: Data[]
-    value?: string | boolean
+    value?: string | boolean | number
     animation?: Animation
     mainAxisAlignment?: Alignment
     crossAxisAlignment?: Alignment
@@ -157,14 +157,6 @@ export type RecursivePartial<T> = {
     [Key in keyof T]?: T[Key] extends Array<infer U> ? Array<RecursivePartial<U>> : 
         T[Key] extends object ? RecursivePartial<T[Key]> :
         T[Key]
-}
-
-export type ComponentProps = {
-    index : number
-    type : string
-    width : number
-    height : number
-    text : string
 }
 
 export type NavigationState = {

@@ -452,34 +452,30 @@ export const functions = <T>(
 	callback : (event : EventConfig<any, any, never>) => T
 ) : T => {
 	const dependencies = new Set<string>([]);
-	return polylingualFunctions(callback(proxy({
-		scope : {
-			socket : {
-				on : () => {
-					// DO NOTHING
-				}
-			},
-			speech : {
-				speak : () => {
-					// DO NOTHING
-				},
-				listen : () => {
-					// DO NOTHING
-				}
-			},
-			picker : {
-				date : () => {
-					// DO NOTHING
-				}
-			},
-			moment : () => ({
-				format : () => "",
-				isSame : () => false
-			})
+	return polylingualFunctions(code(callback, dependencies, {
+		socket : {
+			on : () => {
+				// DO NOTHING
+			}
 		},
-		path : [],
-		dependencies
-	})));
+		speech : {
+			speak : () => {
+				// DO NOTHING
+			},
+			listen : () => {
+				// DO NOTHING
+			}
+		},
+		picker : {
+			date : () => {
+				// DO NOTHING
+			}
+		},
+		moment : () => ({
+			format : () => "",
+			isSame : () => false
+		})
+	})) as unknown as T;
 };
 
 export const navigation = functions(({
@@ -529,8 +525,8 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 	adapters(config.adapters)
 ]);
 
-export const funcs = <Global extends GlobalState, Local>(declare : any) : ComponentFromConfig<Global, Local> => (config) => {
+export const funcs = <Global extends GlobalState, Local>(funcs : any) : ComponentFromConfig<Global, Local> => (config) => {
 	config.parent.funcs = config.parent.funcs || [];
-	config.parent.funcs.push(declare);
+	config.parent.funcs.push(funcs);
 	return config.parent;
 };
