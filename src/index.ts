@@ -226,11 +226,11 @@ export const onBack : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onBack");
 export const onChange : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, string | boolean>) => ProgrammingLanguage
+	callback : (event : EventConfig<Global, Local, string | boolean | number>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onChange");
 
 export const bind = <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, unknown>) => string | boolean
+	callback : (event : EventConfig<Global, Local, unknown>) => string | boolean | number
 ) => props<Global, Local>([
 	onChange(
 		config => set(callback(config), config.event)
