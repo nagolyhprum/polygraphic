@@ -533,7 +533,12 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 		eq(fallback(global.routes, []).length, 0), 
 		set(global.routes, [{
 			id : Date.now().toString(16),
-			adapter : config.initial,			
+			adapter : config.initial,
+			animation : {
+				direction : "in",
+				name : "right",
+				start : 0
+			}		
 		}])
 	)),
 	onBack(config.onBack),
