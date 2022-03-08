@@ -1,4 +1,4 @@
-import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, proxy, ProgrammingUnderscore, ProgrammingDate, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq } from "polylingual";
+import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq } from "polylingual";
 import { EventConfig } from "../dist";
 import { 
 	Animation,
@@ -79,7 +79,7 @@ const setProperty = <
 
 const event = <Global extends GlobalState, Local, Key extends keyof ComponentEvents<Global, Local>>(
 	name : Key
-) => <Global extends GlobalState, Local>(
+) : any => <Global extends GlobalState, Local>(
 		callback : Unarray<ComponentEvents<Global, Local>[Key]>
 	) : ComponentFromConfig<Global, Local> => {
 	const id = generateId();
@@ -449,10 +449,13 @@ export const fab = <Global extends GlobalState, Local>(contents : Array<string |
 	]);
 
 export const functions = <T>(
-	callback : (event : EventConfig<any, any, never>) => T
+	callback : (event : EventConfig<any, any, unknown>) => T
 ) : T => {
-	const dependencies = new Set<string>([]);
-	return polylingualFunctions(code(callback, dependencies, {
+	return polylingualFunctions(callback, {
+		local: {},
+		global : {}, 
+		event: {}, 
+		index:0,
 		socket : {
 			on : () => {
 				// DO NOTHING
@@ -475,7 +478,7 @@ export const functions = <T>(
 			format : () => "",
 			isSame : () => false
 		})
-	})) as unknown as T;
+	});
 };
 
 export const navigation = functions(({
