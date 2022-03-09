@@ -1,4 +1,4 @@
-import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq, ProgrammingDate, declare } from "polylingual";
+import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq, ProgrammingDate, declare, not, add, or, and } from "polylingual";
 import { EventConfig } from "../dist";
 import { 
 	Animation,
@@ -185,6 +185,7 @@ export const placeholder = setProperty("placeholder");
 export const clip = setProperty("clip");
 export const shadow = setProperty("shadow");
 export const markdown = setProperty("markdown");
+export const opacity = setProperty("opacity");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
@@ -539,8 +540,8 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 	adapters : Adapter<Global>
 	onBack : (event: EventConfig<Global, Global, null>) => ProgrammingLanguage
 }) => stack<Global, Global>(MATCH, MATCH, [
+	id("router"),
 	funcs(navigation),
-	clip(true),
 	observe(({
 		global,
 		event
@@ -569,3 +570,173 @@ export const funcs = <Global extends GlobalState, Local>(funcs : () => Programmi
 	config.parent.funcs.push(funcs());
 	return config.parent;
 };
+
+const DEFAULT_TOAST = {
+	curr : {
+		id : "curr",
+		adapter : "local",
+		message : "",
+		animation : <Animation>{
+			direction : "in",
+			name : "right",
+			start : 0
+		}
+	},
+	prev : {
+		id : "prev",
+		adapter : "local",
+		message : "",
+		animation : <Animation>{
+			direction : "in",
+			name : "right",
+			start : 0
+		}
+	},
+	queue : [],
+	isFree : true
+};
+
+type ToasterItem = Data & {
+	message : string
+}
+
+export type ToasterState = {
+	toast?: {
+		prev : ToasterItem
+		curr : ToasterItem
+		queue : Array<string>
+		isFree : boolean
+	}
+}
+
+export const toast = functions(({
+	global,
+	_,
+	Date,
+	setTimeout
+} : {
+	global : ToasterState
+	_ : ProgrammingUnderscore
+	Date : ProgrammingDate
+	setTimeout : ProgrammingTimeout
+}) => ({
+	pushToast : ({
+		message
+	} : {
+		message : string
+	}) => declare(({
+		instance
+	}) => [
+		set(instance.queue, _.concat(instance.queue, [message])),
+		toast.nextToast()
+	], {
+		instance : fallback(global.toast, DEFAULT_TOAST)
+	}),
+	nextToast : () : ProgrammingLanguage => declare(({
+		instance
+	}) => [
+		condition(
+			and(
+				instance.isFree,
+				or(
+					not(eq(instance.queue.length, 0)),
+					not(eq(instance.curr.message, ""))
+				)
+			),
+			declare(({
+				now,
+				timeout
+			}) => [
+				set(instance.isFree, false),
+				set(instance.prev, {
+					id : "prev",
+					message : instance.curr.message,
+					adapter : "local",
+					animation : {
+						direction : "out",
+						name : "left",
+						start : now
+					}
+				}),
+				set(instance.curr, {
+					id : "curr",
+					message : fallback(symbol(instance.queue, 0), ""),
+					adapter : "local",
+					animation : {
+						direction : "in",
+						name : "right",
+						start : now
+					}
+				}),
+				set(instance.queue, _.slice(instance.queue, 1, instance.queue.length)),
+				condition(
+					not(eq(instance.curr.message, "")),
+					set(timeout, add(300, 5000))
+				),
+				setTimeout(() => block([
+					set(instance.isFree, true),
+					toast.nextToast()
+				]), timeout)
+			], {
+				now : Date.now(),
+				timeout : 300
+			})
+		)
+	], {
+		instance : fallback(global.toast, DEFAULT_TOAST)
+	})
+}));
+
+const toasterItem = <Global extends GlobalState & ToasterState>() => column<Global, ToasterItem>(MATCH, WRAP, [
+	id("toaster_item"),
+	position({
+		bottom : 0
+	}),
+	padding(16),
+	observe(({
+		local,
+		event
+	}) => block([
+		set(event.visible, not(eq(local.message, ""))),
+		set(event.animation, local.animation)
+	])),
+	text(MATCH, WRAP, [
+		opacity(.9),
+		background("black"),
+		color("white"),
+		padding(16),
+		observe(({
+			local,
+			event
+		}) => block([
+			set(event.text, local.message),
+		]))
+	]),		
+]);
+
+export const toaster = <Global extends GlobalState & ToasterState, Local>() => stack<Global, Local>(MATCH, 0, [
+	id("toaster"),
+	position({
+		bottom : 0
+	}),
+	onInit(({
+		global
+	}) => set(global.toast, DEFAULT_TOAST)),
+	funcs(toast),
+	observe(({
+		event,
+		global
+	}) => declare(({
+		toast,
+	}) => [
+		set(event.data, [
+			toast.prev,
+			toast.curr,
+		])
+	], {
+		toast : fallback(global.toast, DEFAULT_TOAST)
+	})),
+	adapters({
+		local : toasterItem()
+	}),
+]);

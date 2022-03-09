@@ -138,6 +138,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     shadow?: boolean
     funcs?: ProgrammingLanguage[]
     markdown?: string
+    opacity?: number
 }
 
 export type Animation = {
