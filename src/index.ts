@@ -450,10 +450,10 @@ export const fab = <Global extends GlobalState, Local>(contents : Array<string |
 	]);
 
 export const functions = <T>(
-	callback : (event : EventConfig<any, any, Component<any, any>> & {
-		invoke : T
-	}) => T
-) : T => {
+	callback : (event : EventConfig<any, any, Component<any, any>>) => T
+) : {
+	(): ProgrammingLanguage
+} & T => {
 	return polylingualFunctions(callback as any, {
 		local: {},
 		global : {}, 
@@ -564,8 +564,8 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 	adapters(config.adapters)
 ]);
 
-export const funcs = <Global extends GlobalState, Local>(funcs : any) : ComponentFromConfig<Global, Local> => (config) => {
+export const funcs = <Global extends GlobalState, Local>(funcs : () => ProgrammingLanguage) : ComponentFromConfig<Global, Local> => (config) => {
 	config.parent.funcs = config.parent.funcs || [];
-	config.parent.funcs.push(funcs);
+	config.parent.funcs.push(funcs());
 	return config.parent;
 };
