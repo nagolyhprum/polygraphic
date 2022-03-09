@@ -450,7 +450,9 @@ export const fab = <Global extends GlobalState, Local>(contents : Array<string |
 	]);
 
 export const functions = <T>(
-	callback : (event : EventConfig<any, any, Component<any, any>>) => T
+	callback : (event : EventConfig<any, any, Component<any, any>> & {
+		invoke : T
+	}) => T
 ) : T => {
 	return polylingualFunctions(callback as any, {
 		local: {},
