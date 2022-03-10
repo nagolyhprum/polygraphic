@@ -60,6 +60,7 @@ export type PolygraphicMoment = (input : number) => {
 }
 
 export type EventConfig<Global extends GlobalState, Local, Type> = {
+    Math : Math
     setTimeout: ProgrammingTimeout
     Date : ProgrammingDate
     local : Local
