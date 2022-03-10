@@ -140,6 +140,16 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     funcs?: ProgrammingLanguage[]
     markdown?: string
     opacity?: number
+    manifest?: {        
+        short_name : string
+        name : string
+        icons : string
+        start_url : string
+        display : "fullscreen" | "standalone" | "minimal-ui"
+        background_color: string
+        description: string
+        theme_color: string
+    }
 }
 
 export type Animation = {

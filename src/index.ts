@@ -186,6 +186,7 @@ export const clip = setProperty("clip");
 export const shadow = setProperty("shadow");
 export const markdown = setProperty("markdown");
 export const opacity = setProperty("opacity");
+export const manifest = setProperty("manifest");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
