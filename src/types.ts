@@ -143,7 +143,10 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     manifest?: {        
         short_name : string
         name : string
-        icons : string
+        icons : {
+            src : string
+            percent : number
+        }
         start_url : string
         display : "fullscreen" | "standalone" | "minimal-ui"
         background_color: string
