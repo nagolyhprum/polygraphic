@@ -1,4 +1,27 @@
-import { code, execute, ProgrammingLanguage, set, functions as polylingualFunctions, ProgrammingUnderscore, ProgrammingTimeout, block, symbol, sub, condition, fallback, eq, ProgrammingDate, declare, not, add, or, and } from "polylingual";
+import { 
+	code, 
+	execute, 
+	ProgrammingLanguage, 
+	set, 
+	functions as polylingualFunctions, 
+	ProgrammingUnderscore, 
+	ProgrammingTimeout, 
+	block, 
+	symbol, 
+	sub, 
+	condition, 
+	fallback, 
+	eq, 
+	ProgrammingDate, 
+	declare, 
+	not, 
+	add, 
+	or, 
+	and, 
+	gt, 
+	result,
+	invoke
+} from "polylingual";
 import { EventConfig } from "../dist";
 import { 
 	Animation,
@@ -511,17 +534,12 @@ export const navigation = functions(({
 			name : "right"
 		}
 	}])),
-	popRoute: () => declare(({
-		routes
-	}) => [
-		set(symbol(routes, sub(routes.length, 1)).animation, {
-			direction : "out",
-			name : "right",
-			start : Date.now()
-		}),
-		setTimeout(() => set(global.routes, _.slice(routes, 0, -1)), 300)
-	], {
-		routes : fallback(global.routes, [])
+	popRoute: () => invoke({
+		fun : "onBack",
+		args : [],
+		sideEffect : true,
+		target : null,
+		dependencies : new Set<string>([])
 	})
 }));
 
@@ -563,7 +581,50 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 			}		
 		}])
 	)),
-	onBack(config.onBack),
+	onBack((onBackConfig) => {
+		const {
+			global,
+			setTimeout,
+			_
+		} = onBackConfig;
+		return declare(({
+			routes
+		}) => [
+			config.onBack(onBackConfig),
+			condition(gt(fallback(routes, []).length, 1), block([
+				set(symbol(routes, sub(routes.length, 1)).animation, {
+					direction : "out",
+					name : "right",
+					start : Date.now()
+				}),
+				setTimeout(() => set(global.routes, _.slice(routes, 0, -1)), 300),
+				result(false)
+			]))
+		], {
+			routes : fallback(global.routes, [])
+		});
+	}),
+	/*
+		
+	if(onBack()) {
+		if(global.routes.length === 1) {
+			history.back();
+		} else {
+			global.routes[global.routes.length - 1].animation = {
+				direction : "out",
+				name : "right",
+				start : Date.now()
+			};
+			setTimeout(function() {
+				global.routes = global.routes.slice(0, -1);
+			}, 300);
+			history.pushState(null, document.title, location.href);
+		}
+	} else {
+		history.pushState(null, document.title, location.href);
+	}
+	update();
+		*/
 	adapters(config.adapters)
 ]);
 
