@@ -585,7 +585,8 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 		const {
 			global,
 			setTimeout,
-			_
+			_,
+			Date
 		} = onBackConfig;
 		return declare(({
 			routes
