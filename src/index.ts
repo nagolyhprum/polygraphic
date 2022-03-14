@@ -538,7 +538,7 @@ export const navigation = functions(({
 		fun : "onBack",
 		args : [],
 		sideEffect : true,
-		target : null,
+		target : undefined,
 		dependencies : new Set<string>([])
 	})
 }));
