@@ -599,7 +599,7 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 					start : Date.now()
 				}),
 				setTimeout(() => set(global.routes, _.slice(routes, 0, -1)), 300),
-				result(false)
+				result(true)
 			]))
 		], {
 			routes : fallback(global.routes, [])
