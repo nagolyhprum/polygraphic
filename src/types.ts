@@ -51,7 +51,11 @@ export type PolygraphicSpeech = {
 }
 
 export type PolygraphicPicker = {
-    date : () => void
+    date : (config : {
+        ok : (config : {
+            value : number
+        }) => ProgrammingLanguage
+    }) => ProgrammingLanguage
 }
 
 export type PolygraphicMoment = (input : number) => {
