@@ -141,6 +141,14 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     markdown?: string
     opacity?: number
     manifest?: {        
+        package : {
+            android : string
+            ios : string
+        }
+        version : {
+            name : string
+            code : number
+        }
         short_name : string
         name : string
         icons : {
