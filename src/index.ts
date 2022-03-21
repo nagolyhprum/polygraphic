@@ -825,13 +825,15 @@ const picker = {
 	}
 };
 
+export const stubs ={
+	moment,
+	picker,
+	speech
+};
+
 export const compile = (
 	callback : (config : any) => ProgrammingLanguage,
 	dependencies : Set<string>
 ) => {
-	return code(callback, dependencies, {
-		moment,
-		speech,
-		picker
-	});
+	return code(callback, dependencies, stubs);
 };
