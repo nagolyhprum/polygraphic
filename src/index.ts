@@ -827,13 +827,9 @@ const picker = {
 
 export const compile = (
 	callback : (config : any) => ProgrammingLanguage,
-	dependencies : Set<string>,
-	global : any,
-	local : any
+	dependencies : Set<string>
 ) => {
 	return code(callback, dependencies, {
-		global,
-		local,
 		moment,
 		speech,
 		picker
