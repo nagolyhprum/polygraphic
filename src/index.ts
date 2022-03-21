@@ -804,3 +804,38 @@ export const toaster = <Global extends GlobalState & ToasterState, Local>() => s
 		local : toasterItem()
 	}),
 ]);
+
+const speech = {
+	listen : () => {
+		// DO NOTHING
+	},
+	speak : () => {
+		// DO NOTHING
+	}
+};
+
+const moment = () => ({
+	format : () => "",
+	isSame : () => false
+});
+
+const picker = {
+	date : () => {
+		// DO NOTHING
+	}
+};
+
+export const compile = (
+	callback : (config : any) => ProgrammingLanguage,
+	dependencies : Set<string>,
+	global : any,
+	local : any
+) => {
+	return code(callback, dependencies, {
+		global,
+		local,
+		moment,
+		speech,
+		picker
+	});
+};
