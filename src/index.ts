@@ -211,6 +211,7 @@ export const markdown = setProperty("markdown");
 export const opacity = setProperty("opacity");
 export const manifest = setProperty("manifest");
 export const alt = setProperty("alt");
+export const clickable = setProperty("clickable");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
@@ -424,7 +425,7 @@ export const screen = <Global extends GlobalState>(
 ) => stack<Global, Data & {
 	animation : Animation
 }>(MATCH, MATCH, [
-	onClick(() => block([])),
+	clickable(true),
 	position({
 		top : 0,
 		left : 0
@@ -447,7 +448,7 @@ export const modal = <Global extends GlobalState>(
 ) => scrollable<Global, Data & {
 	animation : Animation
 }>(MATCH, MATCH, [
-	onClick(() => block([])),
+	clickable(true),
 	padding(16),
 	position({
 		top : 0,
@@ -781,6 +782,7 @@ const toasterItem = <Global extends GlobalState & ToasterState>() => column<Glob
 ]);
 
 export const toaster = <Global extends GlobalState & ToasterState, Local>() => stack<Global, Local>(MATCH, WRAP, [
+	clickable(false),
 	id("toaster"),
 	position({
 		bottom : 0

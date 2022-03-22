@@ -166,6 +166,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
         theme_color: string
     }
     alt?: string
+    clickable?: boolean
 }
 
 export type Animation = {
