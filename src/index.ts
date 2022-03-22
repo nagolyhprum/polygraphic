@@ -780,7 +780,7 @@ const toasterItem = <Global extends GlobalState & ToasterState>() => column<Glob
 	]),		
 ]);
 
-export const toaster = <Global extends GlobalState & ToasterState, Local>() => stack<Global, Local>(MATCH, 0, [
+export const toaster = <Global extends GlobalState & ToasterState, Local>() => stack<Global, Local>(MATCH, WRAP, [
 	id("toaster"),
 	position({
 		bottom : 0
