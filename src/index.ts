@@ -424,6 +424,7 @@ export const screen = <Global extends GlobalState>(
 ) => stack<Global, Data & {
 	animation : Animation
 }>(MATCH, MATCH, [
+	onClick(() => block([])),
 	position({
 		top : 0,
 		left : 0
@@ -446,6 +447,7 @@ export const modal = <Global extends GlobalState>(
 ) => scrollable<Global, Data & {
 	animation : Animation
 }>(MATCH, MATCH, [
+	onClick(() => block([])),
 	padding(16),
 	position({
 		top : 0,
