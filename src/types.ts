@@ -91,8 +91,6 @@ export type ComponentEvents<Global extends GlobalState, Local> = {
     onDrop?: Array<(event : EventConfig<Global, Local, null>) => void>
     onEnter?: Array<(event : EventConfig<Global, Local, null>) => void>
     onInit?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onInput?: Array<(event : EventConfig<Global, Local, string>) => void>
-    onSelect?: Array<(event : EventConfig<Global, Local, string>) => void>
     onChange?: Array<(event : EventConfig<Global, Local, boolean>) => void>
 }
 
