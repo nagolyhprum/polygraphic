@@ -23,6 +23,7 @@ export type GlobalState = {
         [key : string] : any
     }
     features?: string[]
+    os?: "ios" | "android" | "web"
 }
 
 export type TagProps = Record<string, string> & {

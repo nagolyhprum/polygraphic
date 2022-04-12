@@ -504,12 +504,10 @@ export const functions = <T>(
 };
 
 export const navigation = functions(({
-	setTimeout,
 	global,
 	_,
 	Date
 } : {
-	setTimeout : ProgrammingTimeout
 	global : NavigationState
 	_ : ProgrammingUnderscore
 	Date : ProgrammingDate
@@ -582,43 +580,28 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 			Date
 		} = onBackConfig;
 		return declare(({
-			routes
+			routes,
+			timeout
 		}) => [
-			config.onBack(onBackConfig),
+			config.onBack(onBackConfig),						
 			condition(gt(fallback(routes, []).length, 1), block([
 				set(symbol(routes, sub(routes.length, 1)).animation, {
 					direction : "out",
 					name : "right",
 					start : Date.now()
 				}),
-				setTimeout(() => set(global.routes, _.slice(routes, 0, -1)), 300),
+				condition(eq(global.os, "ios"), set(
+					timeout,
+					0
+				)),
+				setTimeout(() => set(global.routes, _.slice(routes, 0, -1)), timeout),
 				result(true)
 			]))
 		], {
+			timeout: 300,
 			routes : fallback(global.routes, [])
 		});
 	}),
-	/*
-		
-	if(onBack()) {
-		if(global.routes.length === 1) {
-			history.back();
-		} else {
-			global.routes[global.routes.length - 1].animation = {
-				direction : "out",
-				name : "right",
-				start : Date.now()
-			};
-			setTimeout(function() {
-				global.routes = global.routes.slice(0, -1);
-			}, 300);
-			history.pushState(null, document.title, location.href);
-		}
-	} else {
-		history.pushState(null, document.title, location.href);
-	}
-	update();
-		*/
 	adapters(config.adapters)
 ]);
 
