@@ -649,6 +649,14 @@ export type ToasterState = {
 	}
 }
 
+export const helpers = functions(({
+	Date,
+	_,
+	Math
+}) => ({
+	generateId : () => result(add(Date.now().toString(16), "_", _.slice(Math.random().toString(16), 2))) as unknown as string,
+}));
+
 export const toast = functions(({
 	global,
 	_,
@@ -690,7 +698,7 @@ export const toast = functions(({
 			}) => [
 				set(instance.isFree, false),
 				set(instance.prev, {
-					id : "prev",
+					id : instance.curr.id as string,
 					message : instance.curr.message,
 					adapter : "local",
 					animation : {
@@ -700,7 +708,7 @@ export const toast = functions(({
 					}
 				}),
 				set(instance.curr, {
-					id : "curr",
+					id : helpers.generateId(),
 					message : fallback(symbol(instance.queue, 0), ""),
 					adapter : "local",
 					animation : {
@@ -725,7 +733,7 @@ export const toast = functions(({
 			})
 		).otherwise(
 			set(instance.prev, {
-				id : "prev",
+				id : "",
 				message : "",
 				adapter : "local",
 				animation : {
@@ -778,6 +786,7 @@ export const toaster = <Global extends GlobalState & ToasterState, Local>() => s
 		global
 	}) => set(global.toast, DEFAULT_TOAST)),
 	funcs(toast),
+	funcs(helpers),
 	observe(({
 		event,
 		global
