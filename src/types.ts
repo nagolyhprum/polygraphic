@@ -169,7 +169,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
 }
 
 export type Animation = {
-    name : "opacity" | "left" | "right" | "slide"
+    name : "opacity" | "left" | "right"
     start : number
     direction : "in" | "out"
 }

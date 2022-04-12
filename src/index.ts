@@ -695,7 +695,7 @@ export const toast = functions(({
 					adapter : "local",
 					animation : {
 						direction : "out",
-						name : "slide",
+						name : "left",
 						start : now
 					}
 				}),
@@ -705,7 +705,7 @@ export const toast = functions(({
 					adapter : "local",
 					animation : {
 						direction : "in",
-						name : "slide",
+						name : "right",
 						start : now
 					}
 				}),
@@ -730,7 +730,7 @@ export const toast = functions(({
 				adapter : "local",
 				animation : {
 					direction : "out",
-					name : "slide",
+					name : "left",
 					start : Date.now()
 				}
 			}),
