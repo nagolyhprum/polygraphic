@@ -668,6 +668,7 @@ export const toast = functions(({
 		instance
 	}) => [
 		set(instance.queue, _.concat(instance.queue, [message])),
+		set(global.toast, instance),
 		toast.nextToast()
 	], {
 		instance : fallback(global.toast, DEFAULT_TOAST)
@@ -715,13 +716,15 @@ export const toast = functions(({
 				),
 				setTimeout(() => block([
 					set(instance.isFree, true),
+					set(global.toast, instance),
 					toast.nextToast()
 				]), timeout)
 			], {
 				now : Date.now(),
 				timeout : 300
 			})
-		)
+		),
+		set(global.toast, instance),
 	], {
 		instance : fallback(global.toast, DEFAULT_TOAST)
 	})
