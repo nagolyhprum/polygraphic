@@ -723,6 +723,17 @@ export const toast = functions(({
 				now : Date.now(),
 				timeout : 300
 			})
+		).otherwise(
+			set(instance.prev, {
+				id : "prev",
+				message : "",
+				adapter : "local",
+				animation : {
+					direction : "out",
+					name : "left",
+					start : Date.now()
+				}
+			}),
 		),
 		set(global.toast, instance),
 	], {
