@@ -1,3 +1,4 @@
+import path from "path";
 import { 
 	code, 
 	execute, 
@@ -40,6 +41,7 @@ import {
 	Border,
 	NavigationState
 } from "./types";
+import { writeFile, mkdir } from "fs/promises";
 
 export * from "polylingual";
 export * from "./types";
@@ -838,4 +840,13 @@ export const compile = (
 	dependencies : Set<string>
 ) => {
 	return code(callback, dependencies, stubs);
+};
+
+export const write = async (dir : string, output : Record<string, string | Buffer>) : Promise<void> => {
+	await Promise.all(Object.keys(output).map(async file => {
+		await mkdir(path.dirname(path.join(dir, file))).catch(() => {
+			// DO NOTHING
+		});
+		await writeFile(path.join(dir, file), output[file]);
+	}));
 };
