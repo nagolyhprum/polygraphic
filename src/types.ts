@@ -10,6 +10,7 @@ export type Tag =
     "image" | 
     "input" | 
     "option" | 
+    "progress" |
     "root" | 
     "row" | 
     "scrollable" | 
@@ -93,6 +94,10 @@ export type ComponentEvents<Global extends GlobalState, Local> = {
     onEnter?: Array<(event : EventConfig<Global, Local, null>) => void>
     onInit?: Array<(event : EventConfig<Global, Local, null>) => void>
     onChange?: Array<(event : EventConfig<Global, Local, boolean>) => void>
+    onResize?: Array<(event : EventConfig<Global, Local, {
+        width : number
+        height : number
+    }>) => void>
 }
 
 export type BoxProp<Type> = {

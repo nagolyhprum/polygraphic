@@ -178,6 +178,7 @@ export const position = box("position");
 // TAGS
 
 export const date = tag("date");
+export const progress = tag("progress");
 export const row = tag("row");
 export const column = tag("column");
 export const button = tag("button");
@@ -234,6 +235,12 @@ export const id = <Global extends GlobalState, Local>(id : string) : ComponentFr
 export const observe : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("observe");
+export const onResize : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, {
+		width : number
+		height : number
+	}>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onResize");
 export const onClick : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onClick");
