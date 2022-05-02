@@ -215,6 +215,7 @@ export const opacity = setProperty("opacity");
 export const manifest = setProperty("manifest");
 export const alt = setProperty("alt");
 export const clickable = setProperty("clickable");
+export const bundle = setProperty("bundle");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {

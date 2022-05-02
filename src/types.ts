@@ -171,6 +171,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     }
     alt?: string
     clickable?: boolean
+    bundle?: string[]
 }
 
 export type Animation = {
