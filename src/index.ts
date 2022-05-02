@@ -197,6 +197,7 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const whitespace = setProperty("whitespace");
 export const background = setProperty("background");
 export const grow = setProperty("grow");
 export const value = setProperty("value");
