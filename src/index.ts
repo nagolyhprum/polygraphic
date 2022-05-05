@@ -519,11 +519,13 @@ export const functions = <T>(
 export const navigation = functions(({
 	global,
 	_,
-	Date
+	Date,
+	setTimeout
 } : {
 	global : NavigationState
 	_ : ProgrammingUnderscore
 	Date : ProgrammingDate
+	setTimeout : ProgrammingTimeout
 }) => ({
 	pushRoute: ({
 		route
@@ -544,7 +546,26 @@ export const navigation = functions(({
 		sideEffect : true,
 		target : undefined,
 		dependencies : new Set<string>([])
-	})
+	}),
+	clearRoutes: ({
+		route
+	} : {
+		route : string
+	}) => block([
+		set(global.routes, _.concat(fallback(global.routes, []), [{
+			id : route,
+			adapter : route,
+			animation : {
+				start : Date.now(),
+				direction : "in",
+				name : "right"
+			}
+		}])),
+		setTimeout(() => set(
+			global.routes,
+			_.slice(fallback(global.routes, []), -1)
+		), 300)
+	]),
 }));
 
 export const feature = <Global extends GlobalState, Local>({
