@@ -202,6 +202,7 @@ export const background = setProperty("background");
 export const grow = setProperty("grow");
 export const value = setProperty("value");
 export const animation = setProperty<"animation", Animation>("animation");
+export const align = setProperty<"align", Alignment>("align");
 export const mainAxisAlignment = setProperty<"mainAxisAlignment", Alignment>("mainAxisAlignment");
 export const crossAxisAlignment = setProperty<"crossAxisAlignment", Alignment>("crossAxisAlignment");
 export const size = setProperty("size");

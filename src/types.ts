@@ -173,6 +173,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     clickable?: boolean
     bundle?: string[]
     whitespace?: "nowrap" | "normal" | "pre"
+    align?: Alignment
 }
 
 export type Animation = {
