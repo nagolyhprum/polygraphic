@@ -49,7 +49,11 @@ export type PolygraphicSpeech = {
         interimResults?: boolean
         maxAlternatives?: number
     }) => ProgrammingLanguage
-    speak : (text : string) => ProgrammingLanguage
+    speak : (config : {
+        text : string
+        lang : string
+        rate : number
+    }) => ProgrammingLanguage
 }
 
 export type PolygraphicPicker = {
