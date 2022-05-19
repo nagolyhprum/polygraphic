@@ -616,11 +616,22 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 		} = onBackConfig;
 		return declare(({
 			routes,
-			timeout
+			timeout,
+			routeIndex
 		}) => [
-			config.onBack(onBackConfig),						
-			condition(gt(fallback(routes, []).length, 1), block([
-				set(symbol(routes, sub(routes.length, 1)).animation, {
+			config.onBack(onBackConfig),					
+			_.forEach(routes, ({
+				item,
+				index
+			}) => condition(
+				eq(item.animation?.direction, "in"),
+				set(
+					routeIndex,
+					index
+				)
+			)),
+			condition(gt(routeIndex, -1), block([
+				set(symbol(routes, routeIndex).animation, {
 					direction : "out",
 					name : "right",
 					start : Date.now()
@@ -629,10 +640,11 @@ export const router = <Global extends GlobalState & NavigationState>(config : {
 					timeout,
 					0
 				)),
-				setTimeout(() => set(global.routes, _.slice(routes, 0, -1)), timeout),
+				setTimeout(() => set(global.routes, _.slice(routes, 0, routeIndex)), timeout),
 				result(true)
 			]))
 		], {
+			routeIndex: -1,
 			timeout: 300,
 			routes : fallback(global.routes, [])
 		});
