@@ -163,10 +163,12 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
         }
         short_name : string
         name : string
-        icons : {
-            src : string
-            percent : number
-        }
+        icons : Array<{
+            src: string
+            sizes: string
+            type: string
+            purpose: string
+        }>
         start_url : string
         display : "fullscreen" | "standalone" | "minimal-ui"
         background_color: string
