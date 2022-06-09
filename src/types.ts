@@ -28,10 +28,6 @@ export type GlobalState = {
     os?: "ios" | "android" | "web"
 }
 
-export type TagProps = Record<string, string> & {
-    style : Record<string, string>
-}
-
 export type PolygraphicSocket = {
     on : (name : string, callback : (config : { data : any }) => void) => void
 }
@@ -125,7 +121,18 @@ export type ComponentBoxProps = {
 
 export type Alignment = "start" | "center" | "end";
 
-export type Component<Global extends GlobalState, Local> = ComponentBoxProps & ComponentEvents<Global, Local> & {
+export type AddableComponent = {
+    links?: Array<{
+        rel : string
+        href : string
+    }>
+    metas?: Array<{
+        name : string
+        content : string
+    }>
+}
+
+export type Component<Global extends GlobalState, Local> = ComponentBoxProps & ComponentEvents<Global, Local> & AddableComponent & {
     width : number
     height : number
     name : Tag
@@ -183,6 +190,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     align?: Alignment
     href?: string
     target?: string
+    title?: string
 }
 
 export type Animation = {

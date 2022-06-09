@@ -9,7 +9,6 @@ import {
 	ProgrammingTimeout, 
 	block, 
 	symbol, 
-	sub, 
 	condition, 
 	fallback, 
 	eq, 
@@ -39,7 +38,8 @@ import {
 	Unarray, 
 	UnwrapBoxProp,
 	Border,
-	NavigationState
+	NavigationState,
+	AddableComponent
 } from "./types";
 import { writeFile, mkdir } from "fs/promises";
 
@@ -221,6 +221,26 @@ export const manifest = setProperty("manifest");
 export const alt = setProperty("alt");
 export const clickable = setProperty("clickable");
 export const bundle = setProperty("bundle");
+
+export const title = setProperty("title");
+
+const addProperty = <
+	Key extends keyof AddableComponent,
+	Value extends AddableComponent[Key]
+>(
+		name : Key
+	) => <Global extends GlobalState, Local>(
+		value : Unarray<Value>
+	) : ComponentFromConfig<Global, Local> => ({
+			parent
+		}) => {
+			parent[name] = parent[name] || [];
+			parent[name]?.push(value as any);
+			return parent;
+		};
+
+export const link = addProperty("links");
+export const meta = addProperty("metas");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
