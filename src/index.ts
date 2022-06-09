@@ -225,17 +225,17 @@ export const bundle = setProperty("bundle");
 export const title = setProperty("title");
 
 const addProperty = <
-	Key extends keyof AddableComponent,
-	Value extends AddableComponent[Key]
+	Key extends keyof AddableComponent
 >(
 		name : Key
 	) => <Global extends GlobalState, Local>(
-		value : Unarray<Value>
+		key : string,
+		value : string
 	) : ComponentFromConfig<Global, Local> => ({
 			parent
 		}) => {
-			parent[name] = parent[name] || [];
-			parent[name]?.push(value as any);
+			const map = (parent[name] = parent[name] || {}) as Record<string, string>;
+			map[key] = value;
 			return parent;
 		};
 

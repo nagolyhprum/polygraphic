@@ -122,14 +122,8 @@ export type ComponentBoxProps = {
 export type Alignment = "start" | "center" | "end";
 
 export type AddableComponent = {
-    links?: Array<{
-        rel : string
-        href : string
-    }>
-    metas?: Array<{
-        name : string
-        content : string
-    }>
+    links?: Record<string, string>
+    metas?: Record<string, string>
 }
 
 export type Component<Global extends GlobalState, Local> = ComponentBoxProps & ComponentEvents<Global, Local> & AddableComponent & {
