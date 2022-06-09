@@ -16,7 +16,8 @@ export type Tag =
     "scrollable" | 
     "select" | 
     "stack" | 
-    "text"
+    "text" |
+    "anchor"
     
 
 export type GlobalState = {
@@ -180,6 +181,8 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     bundle?: string[]
     whitespace?: "nowrap" | "normal" | "pre"
     align?: Alignment
+    href?: string
+    target?: string
 }
 
 export type Animation = {

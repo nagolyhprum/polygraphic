@@ -188,6 +188,7 @@ export const stack = tag("stack");
 export const input = tag("input");
 export const select = tag("select");
 export const image = tag("image");
+export const anchor = tag("anchor");
 export const option = <Global extends GlobalState, Local>(
 	props : Array<string | ComponentFromConfig<Global, Local>>
 ) => tag("option")(WRAP, WRAP, props);
@@ -197,6 +198,8 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const href = setProperty("href");
+export const target = setProperty("target");
 export const whitespace = setProperty("whitespace");
 export const background = setProperty("background");
 export const grow = setProperty("grow");
