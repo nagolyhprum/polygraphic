@@ -902,7 +902,7 @@ export const stubs ={
 };
 
 export const compile = (
-	callback : (config : any) => ProgrammingLanguage,
+	callback : (config : any) => ProgrammingLanguage | null,
 	dependencies : Set<string>
 ) => {
 	return code(callback, dependencies, stubs);
