@@ -86,19 +86,19 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
 }
 
 export type ComponentEvents<Global extends GlobalState, Local> = {
-    observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => void>
-    onBack?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onClick?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onDragStart?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onDragEnd?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onDrop?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onEnter?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onInit?: Array<(event : EventConfig<Global, Local, null>) => void>
-    onChange?: Array<(event : EventConfig<Global, Local, boolean>) => void>
+    observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage | null>
+    onBack?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
+    onClick?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
+    onDragStart?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
+    onDragEnd?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
+    onDrop?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
+    onEnter?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
+    onInit?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
+    onChange?: Array<(event : EventConfig<Global, Local, boolean>) => ProgrammingLanguage | null>
     onResize?: Array<(event : EventConfig<Global, Local, {
         width : number
         height : number
-    }>) => void>
+    }>) => ProgrammingLanguage | null>
 }
 
 export type BoxProp<Type> = {
