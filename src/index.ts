@@ -259,37 +259,37 @@ export const id = <Global extends GlobalState, Local>(id : string) : ComponentFr
 // EVENTS
 
 export const observe : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("observe");
 export const onResize : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, {
 		width : number
 		height : number
-	}>) => ProgrammingLanguage | null
+	}>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onResize");
 export const onClick : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onClick");
 export const onEnter : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onEnter");
 export const onInit : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onInit");
 export const onDragStart : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onDragStart");
 export const onDragEnd : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onDragEnd");
 export const onDrop : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onDrop");
 export const onBack : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onBack");
 export const onChange : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, string | boolean | number>) => ProgrammingLanguage | null
+	callback : (event : EventConfig<Global, Local, string | boolean | number>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onChange");
 
 export const bind = <Global extends GlobalState, Local>(
@@ -902,7 +902,7 @@ export const stubs ={
 };
 
 export const compile = (
-	callback : (config : any) => ProgrammingLanguage | null,
+	callback : (config : any) => ProgrammingLanguage,
 	dependencies : Set<string>
 ) => {
 	return code(callback, dependencies, stubs);

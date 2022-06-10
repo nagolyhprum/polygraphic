@@ -86,19 +86,19 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
 }
 
 export type ComponentEvents<Global extends GlobalState, Local> = {
-    observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage | null>
-    onBack?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
-    onClick?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
-    onDragStart?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
-    onDragEnd?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
-    onDrop?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
-    onEnter?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
-    onInit?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage | null>
-    onChange?: Array<(event : EventConfig<Global, Local, boolean>) => ProgrammingLanguage | null>
+    observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage>
+    onBack?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onClick?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onDragStart?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onDragEnd?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onDrop?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onEnter?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onInit?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onChange?: Array<(event : EventConfig<Global, Local, boolean>) => ProgrammingLanguage>
     onResize?: Array<(event : EventConfig<Global, Local, {
         width : number
         height : number
-    }>) => ProgrammingLanguage | null>
+    }>) => ProgrammingLanguage>
 }
 
 export type BoxProp<Type> = {
