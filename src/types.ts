@@ -17,7 +17,10 @@ export type Tag =
     "select" | 
     "stack" | 
     "text" |
-    "anchor"
+    "anchor" |
+    "flex" |
+    "nav" | "footer" | "header" | "main" | "h1" | "h2" | "h3" | "section" | "p" |
+    "grid"
     
 
 export type GlobalState = {
@@ -185,6 +188,15 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     href?: string
     target?: string
     title?: string
+    direction?: "row" | "column"
+    max?: {
+        width?: number
+        height?: number
+    }
+    queries?: {
+        [query : string] : Component<Global, Local>
+    }
+    columns?: number
 }
 
 export type Animation = {

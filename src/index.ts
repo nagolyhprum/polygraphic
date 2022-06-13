@@ -177,6 +177,7 @@ export const position = box("position");
 
 // TAGS
 
+export const flex = tag("flex");
 export const date = tag("date");
 export const progress = tag("progress");
 export const row = tag("row");
@@ -186,6 +187,7 @@ export const scrollable = tag("scrollable");
 export const text = tag("text");
 export const stack = tag("stack");
 export const input = tag("input");
+export const grid = tag("grid");
 export const select = tag("select");
 export const image = tag("image");
 export const anchor = tag("anchor");
@@ -198,6 +200,9 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const columns = setProperty("columns");
+export const max = setProperty("max");
+export const direction = setProperty("direction");
 export const href = setProperty("href");
 export const target = setProperty("target");
 export const whitespace = setProperty("whitespace");
@@ -496,6 +501,18 @@ export const modal = <Global extends GlobalState>(
 		child,
 	])
 ]);
+
+const landmark = {
+	navigation : tag("nav"),
+	header : tag("header"),
+	footer : tag("footer"),
+	section : tag("section"),
+	primary : tag("h1"),
+	secondary : tag("h2"),
+	tertiary : tag("h3"),
+	paragraph : tag("p"),
+	main : tag("main"),
+};
 
 export const fab = <Global extends GlobalState, Local>(contents : Array<string | ComponentFromConfig<Global, Local>>) => 
 	button<Global, Local>(56, 56, [
@@ -916,3 +933,23 @@ export const write = async (dir : string, output : Record<string, string | Buffe
 		await writeFile(path.join(dir, file), output[file]);
 	}));
 };
+
+export const media = <T extends Record<string, [number, number]>>(
+	media : T
+) => <Global extends GlobalState, Local>(
+		key : keyof T,
+		styles : ComponentFromConfig<Global, Local>
+	) : ComponentFromConfig<Global, Local> => (config) => {
+			const range = media[key];
+			let query;
+			if(range[0] <= 0) {
+				query = `@media screen and (max-width: ${range[1] + 0.05})`;
+			} else if(Number.isFinite(range[1])) {
+				query = `@media screen and (min-width: ${range[0]}px)`;
+			} else {
+				query = `@media screen and (min-width: ${range[0]}px) and (max-width: ${range[1] + 0.05})`;
+			}
+			const queries = config.parent.queries = config.parent.queries || {};
+			const applied = queries[query] = queries[query] || {};
+			return applyProps(applied, [styles], config);
+		};
