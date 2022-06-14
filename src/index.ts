@@ -200,6 +200,7 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const visible = setProperty("visible");
 export const columns = setProperty("columns");
 export const max = setProperty("max");
 export const direction = setProperty("direction");
