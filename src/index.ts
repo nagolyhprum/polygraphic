@@ -944,11 +944,11 @@ export const media = <T extends Record<string, [number, number]>>(
 			const range = media[key];
 			let query;
 			if(range[0] <= 0) {
-				query = `@media screen and (max-width: ${range[1] + 0.05})`;
+				query = `@media screen and (max-width: ${range[1] + 0.05}px)`;
 			} else if(!Number.isFinite(range[1])) {
 				query = `@media screen and (min-width: ${range[0]}px)`;
 			} else {
-				query = `@media screen and (min-width: ${range[0]}px) and (max-width: ${range[1] + 0.05})`;
+				query = `@media screen and (min-width: ${range[0]}px) and (max-width: ${range[1] + 0.05}px)`;
 			}
 			const queries = config.parent.queries = config.parent.queries || {};
 			const applied = queries[query] = queries[query] || {};
