@@ -20,7 +20,8 @@ export type Tag =
     "anchor" |
     "flex" |
     "nav" | "footer" | "header" | "main" | "h1" | "h2" | "h3" | "section" | "p" |
-    "grid"
+    "grid" |
+    "fixed"
     
 
 export type GlobalState = {

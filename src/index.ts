@@ -186,6 +186,7 @@ export const button = tag("button");
 export const scrollable = tag("scrollable");
 export const text = tag("text");
 export const stack = tag("stack");
+export const fixed = tag("fixed");
 export const input = tag("input");
 export const grid = tag("grid");
 export const select = tag("select");
@@ -511,7 +512,7 @@ export const modal = <Global extends GlobalState>(
 	])
 ]);
 
-const landmark = {
+export const landmark = {
 	navigation : tag("nav"),
 	header : tag("header"),
 	footer : tag("footer"),
