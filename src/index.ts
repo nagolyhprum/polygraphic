@@ -229,6 +229,7 @@ export const alt = setProperty("alt");
 export const clickable = setProperty("clickable");
 export const bundle = setProperty("bundle");
 export const title = setProperty("title");
+export const translate = setProperty("translate");
 
 const setFont = (weight : number) => <Global extends GlobalState, Local>(size : number) : ComponentFromConfig<Global, Local> => (config) => {
 	config.parent.weight = weight;

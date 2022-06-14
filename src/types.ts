@@ -199,6 +199,10 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
         [query : string] : Component<Global, Local>
     }
     columns?: number
+    translate?: {
+        x : number
+        y : number
+    }
 }
 
 export type Animation = {
