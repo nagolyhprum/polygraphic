@@ -227,8 +227,16 @@ export const manifest = setProperty("manifest");
 export const alt = setProperty("alt");
 export const clickable = setProperty("clickable");
 export const bundle = setProperty("bundle");
-
 export const title = setProperty("title");
+
+const setFont = (weight : number) => <Global extends GlobalState, Local>(size : number) : ComponentFromConfig<Global, Local> => (config) => {
+	config.parent.weight = weight;
+	config.parent.size = size;
+	return config.parent;
+};
+export const regular = setFont(400);
+export const medium = setFont(500);
+export const bold = setFont(700);
 
 const addProperty = <
 	Key extends keyof AddableComponent

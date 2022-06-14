@@ -149,6 +149,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     mainAxisAlignment?: Alignment
     crossAxisAlignment?: Alignment
     size?: number
+    weight?: number
     color?: string
     src?: string
     round?: number
