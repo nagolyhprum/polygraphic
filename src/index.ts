@@ -201,6 +201,7 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const index = setProperty("index");
 export const visible = setProperty("visible");
 export const columns = setProperty("columns");
 export const max = setProperty("max");
@@ -260,7 +261,7 @@ export const meta = addProperty("metas");
 
 const ids : Record<string, boolean> = {};
 export const id = <Global extends GlobalState, Local>(id : string) : ComponentFromConfig<Global, Local> => {
-	if(ids[id]) {
+	if(id && ids[id]) {
 		console.warn("ids must be globally unique", id);
 	}
 	ids[id] = true;

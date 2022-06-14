@@ -182,6 +182,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
         description: string
         theme_color: string
     }
+    index?: number
     alt?: string
     clickable?: boolean
     bundle?: string[]
