@@ -201,6 +201,8 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const width = setProperty("width");
+export const height = setProperty("height");
 export const index = setProperty("index");
 export const visible = setProperty("visible");
 export const columns = setProperty("columns");
