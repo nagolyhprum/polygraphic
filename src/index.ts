@@ -551,23 +551,10 @@ export const functions = <T>(
 				// DO NOTHING
 			}
 		},
-		speech : {
-			speak : () => {
-				// DO NOTHING
-			},
-			listen : () => {
-				// DO NOTHING
-			}
-		},
-		picker : {
-			date : () => {
-				// DO NOTHING
-			}
-		},
-		moment : () => ({
-			format : () => "",
-			isSame : () => false
-		})
+		speech,
+		picker,
+		audio,
+		moment,
 	});
 };
 
