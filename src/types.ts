@@ -2,6 +2,8 @@ import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, Programmin
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
+type Measurable = string | number
+
 export type Tag = 
     "button" | 
     "checkbox" |
@@ -119,15 +121,15 @@ export type BoxProp<Type> = {
     left?: Type
 }
 
-export type Border = [number, "solid" | "dashed", string]
+export type Border = [Measurable, "solid" | "dashed", string]
 
 export type UnwrapBoxProp<T> = T extends BoxProp<infer U> ? U : T;
 
 export type ComponentBoxProps = {
-    padding?: BoxProp<number>
-    margin?: BoxProp<number>
+    padding?: BoxProp<Measurable>
+    margin?: BoxProp<Measurable>
     border?: BoxProp<Border>
-    position?: BoxProp<number>
+    position?: BoxProp<Measurable>
 }
 
 export type Alignment = "start" | "center" | "end";
@@ -138,8 +140,8 @@ export type AddableComponent = {
 }
 
 export type Component<Global extends GlobalState, Local> = ComponentBoxProps & ComponentEvents<Global, Local> & AddableComponent & {
-    width : number
-    height : number
+    width : Measurable
+    height : Measurable
     name : Tag
     focus?: boolean
     enabled?: boolean
@@ -160,7 +162,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     weight?: number
     color?: string
     src?: string
-    round?: number
+    round?: Measurable
     clip?: boolean
     shadow?: boolean
     funcs?: ProgrammingLanguage[]
@@ -200,16 +202,16 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     title?: string
     direction?: "row" | "column"
     max?: {
-        width?: number
-        height?: number
+        width?: Measurable
+        height?: Measurable
     }
     queries?: {
         [query : string] : Component<Global, Local>
     }
     columns?: number
     translate?: {
-        x : number
-        y : number
+        x : Measurable
+        y : Measurable
     }
 }
 
