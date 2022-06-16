@@ -49,6 +49,39 @@ export * from "./types";
 export const MATCH = -1;
 export const WRAP = -2;
 
+const speech = {
+	listen : () => {
+		// DO NOTHING
+	},
+	speak : () => {
+		// DO NOTHING
+	}
+};
+
+const moment = () => ({
+	format : () => "",
+	isSame : () => false
+});
+
+const picker = {
+	date : () => {
+		// DO NOTHING
+	}
+};
+
+const audio = {
+	play : () => {
+		// DO NOTHING
+	}
+};
+
+export const stubs ={
+	moment,
+	picker,
+	speech,
+	audio
+};
+
 export const generateId = () => `_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
 
 const tag = (name : Tag) => <Global extends GlobalState, Local>(
@@ -892,39 +925,6 @@ export const toaster = <Global extends GlobalState & ToasterState, Local>() => s
 		local : toasterItem()
 	}),
 ]);
-
-const speech = {
-	listen : () => {
-		// DO NOTHING
-	},
-	speak : () => {
-		// DO NOTHING
-	}
-};
-
-const moment = () => ({
-	format : () => "",
-	isSame : () => false
-});
-
-const picker = {
-	date : () => {
-		// DO NOTHING
-	}
-};
-
-const audio = {
-	play : () => {
-		// DO NOTHING
-	}
-};
-
-export const stubs ={
-	moment,
-	picker,
-	speech,
-	audio
-};
 
 export const compile = (
 	callback : (config : any) => ProgrammingLanguage,
