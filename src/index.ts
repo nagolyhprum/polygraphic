@@ -926,10 +926,17 @@ const picker = {
 	}
 };
 
+const audio = {
+	play : () => {
+		// DO NOTHING
+	}
+};
+
 export const stubs ={
 	moment,
 	picker,
-	speech
+	speech,
+	audio
 };
 
 export const compile = (

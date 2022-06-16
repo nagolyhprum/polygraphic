@@ -70,6 +70,12 @@ export type PolygraphicMoment = (input : number) => {
     format : (format : string) => string
 }
 
+export type PolygraphicAudio = {
+    play : (config : {
+        src : string
+    }) => void
+}
+
 export type EventConfig<Global extends GlobalState, Local, Type> = {
     Math : Math
     setTimeout: ProgrammingTimeout
@@ -87,6 +93,7 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
     speech : PolygraphicSpeech
     picker : PolygraphicPicker
     moment : PolygraphicMoment
+    audio : PolygraphicAudio
 }
 
 export type ComponentEvents<Global extends GlobalState, Local> = {
