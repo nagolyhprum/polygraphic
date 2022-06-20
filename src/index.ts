@@ -504,6 +504,7 @@ export const screen = <Global extends GlobalState>(
 }>(MATCH, MATCH, [
 	id("screen"),
 	clickable(true),
+	clip(true),
 	position({
 		top : 0,
 		left : 0
@@ -527,6 +528,7 @@ export const modal = <Global extends GlobalState>(
 	animation : Animation
 }>(MATCH, MATCH, [
 	id("modal"),
+	clip(true),
 	clickable(true),
 	padding(16),
 	position({
