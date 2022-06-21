@@ -101,6 +101,7 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
 export type ComponentEvents<Global extends GlobalState, Local> = {
     observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage>
     onBack?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onContext?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
     onClick?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
     onDragStart?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
     onDragEnd?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
