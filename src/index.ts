@@ -344,7 +344,7 @@ export const onChange : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, string | boolean | number>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onChange");
 export const onContext : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, string | boolean | number>) => ProgrammingLanguage
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onContext");
 
 export const bind = <Global extends GlobalState, Local>(
