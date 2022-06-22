@@ -335,7 +335,7 @@ export const onDragEnd : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onDragEnd");
 export const onDrop : <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+	callback : (event : EventConfig<Global, Local, File>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onDrop");
 export const onBack : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
