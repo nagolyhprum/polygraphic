@@ -1,4 +1,4 @@
-import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage, ProgrammingDate, ProgrammingTimeout } from "polylingual";
+import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage, ProgrammingDate, ProgrammingTimeout, ProgrammingNamedTimeout } from "polylingual";
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
@@ -81,6 +81,8 @@ export type PolygraphicAudio = {
 export type EventConfig<Global extends GlobalState, Local, Type> = {
     Math : Math
     setTimeout: ProgrammingTimeout
+    debounce: ProgrammingNamedTimeout
+    throttle: ProgrammingNamedTimeout
     Date : ProgrammingDate
     local : Local
     global : Global
