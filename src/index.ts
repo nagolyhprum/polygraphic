@@ -234,6 +234,7 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const editable = setProperty("editable");
 export const width = setProperty("width");
 export const height = setProperty("height");
 export const index = setProperty("index");

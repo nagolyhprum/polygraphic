@@ -216,6 +216,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
         x : Measurable
         y : Measurable
     }
+    editable?: boolean
 }
 
 export type Animation = {
