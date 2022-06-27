@@ -350,7 +350,7 @@ export const onContext : <Global extends GlobalState, Local>(
 ) => ComponentFromConfig<Global, Local> = event("onContext");
 
 export const bind = <Global extends GlobalState, Local>(
-	callback : (event : EventConfig<Global, Local, unknown>) => string | boolean | number
+	callback : (event : EventConfig<Global, Local, unknown>) => string | boolean | number | null | undefined
 ) => props<Global, Local>([
 	onChange(
 		config => set(callback(config), config.event)
