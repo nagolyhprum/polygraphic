@@ -221,6 +221,7 @@ export const text = tag("text");
 export const stack = tag("stack");
 export const fixed = tag("fixed");
 export const input = tag("input");
+export const number = tag("number");
 export const grid = tag("grid");
 export const select = tag("select");
 export const image = tag("image");
