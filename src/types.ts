@@ -24,7 +24,8 @@ export type Tag =
     "nav" | "footer" | "header" | "main" | "h1" | "h2" | "h3" | "section" | "p" |
     "grid" |
     "fixed" |
-    "number"
+    "number" |
+    "editor"
     
 
 export type GlobalState = {
@@ -154,6 +155,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     id? : string
     children?: Array<Component<Global, Local>>
     text?: string
+    html?: string
     background?: string
     grow?: boolean
     adapters?: Adapter<Global>
