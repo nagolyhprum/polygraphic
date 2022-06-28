@@ -210,6 +210,7 @@ export const position = box("position");
 
 // TAGS
 
+export const editor = tag("editor");
 export const flex = tag("flex");
 export const date = tag("date");
 export const progress = tag("progress");
