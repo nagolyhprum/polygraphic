@@ -219,6 +219,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
         x : Measurable
         y : Measurable
     }
+    rotate?: Measurable
     editable?: boolean
 }
 
