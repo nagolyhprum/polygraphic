@@ -79,7 +79,8 @@ export const stubs ={
 	moment,
 	picker,
 	speech,
-	audio
+	audio,
+	handlebars
 };
 
 export const generateId = () => `_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
@@ -598,9 +599,11 @@ export const functions = <T>(
 		picker,
 		audio,
 		moment,
-		handlebars: () => ""
+		handlebars
 	});
 };
+
+const handlebars = () => "";
 
 export const navigation = functions(({
 	global,
