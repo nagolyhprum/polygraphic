@@ -58,6 +58,8 @@ const speech = {
 	}
 };
 
+const handlebars = () => "";
+
 const moment = () => ({
 	format : () => "",
 	isSame : () => false
@@ -602,8 +604,6 @@ export const functions = <T>(
 		handlebars
 	});
 };
-
-const handlebars = () => "";
 
 export const navigation = functions(({
 	global,
