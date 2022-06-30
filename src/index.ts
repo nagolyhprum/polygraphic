@@ -598,6 +598,7 @@ export const functions = <T>(
 		picker,
 		audio,
 		moment,
+		handlebars: () => ""
 	});
 };
 

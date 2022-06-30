@@ -100,7 +100,11 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
     picker : PolygraphicPicker
     moment : PolygraphicMoment
     audio : PolygraphicAudio
+
+    handlebars : PolygraphicHandleBars
 }
+
+type PolygraphicHandleBars = (template : string, data : unknown) => string
 
 export type ComponentEvents<Global extends GlobalState, Local> = {
     observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage>
