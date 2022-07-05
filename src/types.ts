@@ -25,7 +25,8 @@ export type Tag =
     "grid" |
     "fixed" |
     "number" |
-    "editor"
+    "editor" |
+    "content"
     
 
 export type GlobalState = {
