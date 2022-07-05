@@ -218,6 +218,7 @@ export const flex = tag("flex");
 export const date = tag("date");
 export const progress = tag("progress");
 export const row = tag("row");
+export const content = tag("content");
 export const column = tag("column");
 export const button = tag("button");
 export const scrollable = tag("scrollable");
