@@ -2,7 +2,7 @@ import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, Programmin
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
-type Measurable = string | number
+export type Measurable = string | number
 
 export type Tag = 
     "button" | 
