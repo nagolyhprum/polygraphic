@@ -88,8 +88,8 @@ export const stubs ={
 export const generateId = () => `_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
 
 const tag = (name : Tag) => <Global extends GlobalState, Local>(
-	width : number,
-	height : number,
+	width : Measurable,
+	height : Measurable,
 	props : (ComponentFromConfig<Global, Local> | string)[]
 ) : ComponentFromConfig<Global, Local> => (
 		config
