@@ -39,7 +39,8 @@ import {
 	UnwrapBoxProp,
 	Border,
 	NavigationState,
-	AddableComponent
+	AddableComponent,
+	Measurable
 } from "./types";
 import { writeFile, mkdir } from "fs/promises";
 
@@ -213,6 +214,7 @@ export const position = box("position");
 
 // TAGS
 
+export const iframe = tag("iframe");
 export const editor = tag("editor");
 export const flex = tag("flex");
 export const date = tag("date");
