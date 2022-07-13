@@ -206,7 +206,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     alt?: string
     clickable?: boolean
     bundle?: string[]
-    whitespace?: "nowrap" | "normal" | "pre"
+    whitespace?: "nowrap" | "normal" | "pre" | "pre-wrap"
     align?: Alignment
     href?: string
     target?: string
@@ -226,6 +226,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     }
     rotate?: Measurable
     editable?: boolean
+    float?: "left" | "right" | "clear"
 }
 
 export type Animation = {
