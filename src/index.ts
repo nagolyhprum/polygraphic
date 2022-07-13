@@ -214,6 +214,7 @@ export const position = box("position");
 
 // TAGS
 
+export const textarea = tag("textarea");
 export const iframe = tag("iframe");
 export const editor = tag("editor");
 export const flex = tag("flex");
@@ -242,6 +243,7 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const rel = setProperty("rel");
 export const float = setProperty("float");
 export const html = setProperty("html");
 export const editable = setProperty("editable");

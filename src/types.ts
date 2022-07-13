@@ -5,6 +5,7 @@ export type Unarray<T> = T extends Array<infer U> ? U : T;
 export type Measurable = string | number
 
 export type Tag = 
+    "textarea" |
     "iframe" |
     "button" | 
     "checkbox" |
@@ -228,6 +229,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     rotate?: Measurable
     editable?: boolean
     float?: "left" | "right" | "clear"
+    rel?: string
 }
 
 export type Animation = {
