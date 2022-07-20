@@ -230,6 +230,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     editable?: boolean
     float?: "left" | "right" | "clear"
     rel?: string
+    analytics?: string
 }
 
 export type Animation = {

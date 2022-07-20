@@ -243,6 +243,7 @@ export const checkbox = <Global extends GlobalState, Local>(
 
 // PROPS
 
+export const analytics = setProperty("analytics");
 export const rel = setProperty("rel");
 export const float = setProperty("float");
 export const html = setProperty("html");
