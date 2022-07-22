@@ -590,11 +590,12 @@ export const fab = <Global extends GlobalState, Local>(contents : Array<string |
 	]);
 
 export const functions = <T>(
+	name : string,
 	callback : (event : EventConfig<any, any, never>) => T
 ) : {
 	(): ProgrammingLanguage
 } & T => {
-	return polylingualFunctions(callback as any, {
+	return polylingualFunctions(name, callback as any, {
 		local: {},
 		global : {}, 
 		event: {}, 
@@ -612,7 +613,7 @@ export const functions = <T>(
 	});
 };
 
-export const navigation = functions(({
+export const navigation = functions("Navigation", ({
 	global,
 	_,
 	Date,
@@ -791,7 +792,7 @@ export type ToasterState = {
 	}
 }
 
-export const helpers = functions(({
+export const helpers = functions("Helper", ({
 	Date,
 	_,
 	Math
@@ -799,7 +800,7 @@ export const helpers = functions(({
 	generateId : () => result(add(Date.now().toString(16), "_", _.slice(Math.random().toString(16), 2))) as unknown as string,
 }));
 
-export const toast = functions(({
+export const toast = functions("Toast", ({
 	global,
 	_,
 	Date,
