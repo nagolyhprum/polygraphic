@@ -214,6 +214,7 @@ export const position = box("position");
 
 // TAGS
 
+export const canvas = tag("canvas");
 export const textarea = tag("textarea");
 export const iframe = tag("iframe");
 export const editor = tag("editor");
@@ -254,6 +255,7 @@ export const index = setProperty("index");
 export const visible = setProperty("visible");
 export const columns = setProperty("columns");
 export const max = setProperty("max");
+export const min = setProperty("min");
 export const direction = setProperty("direction");
 export const href = setProperty("href");
 export const target = setProperty("target");

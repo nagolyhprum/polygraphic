@@ -5,6 +5,7 @@ export type Unarray<T> = T extends Array<infer U> ? U : T;
 export type Measurable = string | number
 
 export type Tag = 
+    "canvas" |
     "textarea" |
     "iframe" |
     "button" | 
@@ -218,6 +219,10 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
         width?: Measurable
         height?: Measurable
     }
+    min?: {
+        width?: Measurable
+        height?: Measurable
+    }
     queries?: {
         [query : string] : Component<Global, Local>
     }
@@ -231,6 +236,46 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     float?: "left" | "right" | "clear"
     rel?: string
     analytics?: string
+    draw?: Drawing
+}
+
+type DrawingPosition = {
+    top?: number
+    right?: number
+    bottom?: number
+    left?: number
+    x?: number
+    y?: number
+    width?: number
+    height?: number
+}
+
+type DrawingColor = {
+    fill?: string
+    stroke?: string
+}
+
+type DrawingText = DrawingColor & DrawingPosition & {
+    type : "text"
+    text : string
+    align ?: "start" | "center" | "end"
+    baseline ?: "top" | "middle" | "bottom"
+}
+
+type DrawingRect = DrawingColor & DrawingPosition & {
+    type : "rect"
+    round ?: number
+}
+
+type DrawingImage = DrawingPosition & {
+    type : "image"
+    src : string
+}
+
+type Drawing = {
+    width : number
+    height : number
+    content : Array<DrawingRect | DrawingImage | DrawingText>
 }
 
 export type Animation = {
