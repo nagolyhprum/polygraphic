@@ -260,6 +260,8 @@ type DrawingText = DrawingColor & DrawingPosition & {
     text : string
     align ?: "start" | "center" | "end"
     baseline ?: "top" | "middle" | "bottom"
+    size?: number
+    family?: string
 }
 
 type DrawingRect = DrawingColor & DrawingPosition & {
