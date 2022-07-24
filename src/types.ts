@@ -239,7 +239,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     draw?: Drawing
 }
 
-type DrawingPosition = {
+export type DrawingPosition = {
     top?: number
     right?: number
     bottom?: number
@@ -250,12 +250,12 @@ type DrawingPosition = {
     height?: number
 }
 
-type DrawingColor = {
+export type DrawingColor = {
     fill?: string
     stroke?: string
 }
 
-type DrawingText = DrawingColor & DrawingPosition & {
+export type DrawingText = DrawingColor & DrawingPosition & {
     type : "text"
     text : string
     align ?: "start" | "center" | "end"
@@ -264,17 +264,17 @@ type DrawingText = DrawingColor & DrawingPosition & {
     family?: string
 }
 
-type DrawingRect = DrawingColor & DrawingPosition & {
+export type DrawingRect = DrawingColor & DrawingPosition & {
     type : "rect"
     round ?: number
 }
 
-type DrawingImage = DrawingPosition & {
+export type DrawingImage = DrawingPosition & {
     type : "image"
     src : string
 }
 
-type Drawing = {
+export type Drawing = {
     width : number
     height : number
     content : Array<DrawingRect | DrawingImage | DrawingText>
