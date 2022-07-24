@@ -240,6 +240,10 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
 }
 
 export type DrawingPosition = {
+    translate ?: {
+        x?: number
+        y?: number
+    }
     top?: number
     right?: number
     bottom?: number
