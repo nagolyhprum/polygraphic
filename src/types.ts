@@ -84,7 +84,14 @@ export type PolygraphicAudio = {
     }) => void
 }
 
+export type Recaptcha = {
+    execute : (config : {
+        code : string
+    }) => ProgrammingLanguage
+}
+
 export type EventConfig<Global extends GlobalState, Local, Type> = {
+    recaptcha : Recaptcha
     Math : Math
     setTimeout: ProgrammingTimeout
     debounce: ProgrammingNamedTimeout
@@ -236,6 +243,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     float?: "left" | "right" | "clear"
     rel?: string
     analytics?: string
+    recaptcha?: string
     draw?: Drawing
 }
 
