@@ -340,6 +340,8 @@ export const observe : <Global extends GlobalState, Local>(
 ) => ComponentFromConfig<Global, Local> = event("observe");
 export const onResize : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, {
+		x : number
+		y  : number
 		width : number
 		height : number
 	}>) => ProgrammingLanguage

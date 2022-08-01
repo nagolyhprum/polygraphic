@@ -129,6 +129,8 @@ export type ComponentEvents<Global extends GlobalState, Local> = {
     onInit?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
     onChange?: Array<(event : EventConfig<Global, Local, boolean>) => ProgrammingLanguage>
     onResize?: Array<(event : EventConfig<Global, Local, {
+        x : number
+        y : number
         width : number
         height : number
     }>) => ProgrammingLanguage>
