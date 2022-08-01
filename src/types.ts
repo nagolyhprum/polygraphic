@@ -85,9 +85,9 @@ export type PolygraphicAudio = {
 }
 
 export type Recaptcha = {
-    execute : (config : {
+    execute : (callback : (config : {
         code : string
-    }) => ProgrammingLanguage
+    }) => ProgrammingLanguage) => ProgrammingLanguage
 }
 
 export type EventConfig<Global extends GlobalState, Local, Type> = {
