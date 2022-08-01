@@ -78,12 +78,19 @@ const audio = {
 	}
 };
 
+const recaptchaInstance = {
+	execute : () => {
+		// DO NOTHING
+	}
+};
+
 export const stubs ={
 	moment,
 	picker,
 	speech,
 	audio,
-	handlebars
+	handlebars,
+	recaptcha : recaptchaInstance
 };
 
 export const generateId = () => `_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
@@ -608,11 +615,7 @@ export const functions = <T>(
 				// DO NOTHING
 			}
 		},
-		speech,
-		picker,
-		audio,
-		moment,
-		handlebars
+		...stubs
 	});
 };
 
