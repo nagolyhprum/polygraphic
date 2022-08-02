@@ -41,7 +41,7 @@ export type GlobalState = {
 }
 
 export type PolygraphicSocket = {
-    on : (name : string, callback : (config : { data : any }) => void) => void
+    on : (name : string, callback : (config : { data : any }) => ProgrammingLanguage) => ProgrammingLanguage
 }
 
 export type PolygraphicSpeech = {
@@ -81,7 +81,7 @@ export type PolygraphicMoment = (input : number) => {
 export type PolygraphicAudio = {
     play : (config : {
         src : string
-    }) => void
+    }) => ProgrammingLanguage
     record : (callback : (config : {
         blob : Blob
         url : string
