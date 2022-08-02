@@ -1095,9 +1095,17 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		observe(({
 			event,
 			global
-		}) => set(
-			event.visible,
-			global.tutorial.isReady
+		}) => condition(
+			and(global.tutorial.isReady, not(eq(global.tutorial.active.name, ""))), 
+			set(
+				event.opacity,
+				1
+			)
+		).otherwise(
+			set(
+				event.opacity,
+				0
+			)
 		)),
 		onResize(({
 			global,
