@@ -1180,7 +1180,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 					top : global.tutorial.active.position.top,
 					right : 0,
 					bottom : global.tutorial.active.position.bottom,
-					left : sub(global.width, global.tutorial.active.position.left)
+					left : sub(global.width, global.tutorial.active.position.right)
 				},
 			)),
 		]),
