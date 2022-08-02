@@ -1,6 +1,6 @@
 {
   "name": "polygraphic",
-  "version": "0.146.7",
+  "version": "0.147.0",
   "description": "A framework for building apps",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
