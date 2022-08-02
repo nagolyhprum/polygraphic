@@ -1126,20 +1126,21 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		clickable(false),
 		position(0),
 		// top
-		stack(MATCH, 0, [
+		stack(0, 0, [
 			onClick(dismiss),
 			clickable(true),
-			position({
-				top : 0,
-				left : 0,
-			}),
 			background("rgba(0, 0, 0, .7)"),
 			observe(({
 				event,			
 				global,
 			}) => set(
-				event.height,
-				global.tutorial.active.position.top,
+				event.position,
+				{
+					top : 0,
+					right : 0,
+					bottom : sub(global.height, global.tutorial.active.position.top),
+					left : 0
+				}
 			)),
 			text(MATCH, WRAP, [
 				align("center"),
@@ -1173,39 +1174,32 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			observe(({
 				event,			
 				global,
-			}) => block([
-				set(
-					event.position,
-					{
-						top : global.tutorial.active.position.top,
-						right : 0,
-					},
-				),
-				set(
-					event.width,
-					global.tutorial.active.position.right,
-				),
-				set(
-					event.height,
-					sub(global.height, global.tutorial.active.position.bottom, global.tutorial.active.position.top),
-				),
-			])),
+			}) => set(
+				event.position,
+				{
+					top : global.tutorial.active.position.top,
+					right : 0,
+					bottom : global.tutorial.active.position.bottom,
+					left : sub(global.width, global.tutorial.active.position.left)
+				},
+			)),
 		]),
 		// bottom
 		stack(MATCH, 0, [
 			onClick(dismiss),
 			clickable(true),
-			position({
-				bottom : 0,
-				left : 0,
-			}),
 			background("rgba(0, 0, 0, .7)"),
 			observe(({
 				event,			
 				global,
 			}) => set(
-				event.height,
-				global.tutorial.active.position.bottom,
+				event.position,
+				{
+					top : sub(global.height, global.tutorial.active.position.bottom),
+					right : 0,
+					bottom : 0,
+					left : 0
+				}
 			)),
 			text(MATCH, WRAP, [
 				align("center"),
@@ -1239,23 +1233,15 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			observe(({
 				event,			
 				global,
-			}) => block([
-				set(
-					event.position,
-					{
-						top : global.tutorial.active.position.top,
-						left : 0,
-					},
-				),
-				set(
-					event.width,
-					global.tutorial.active.position.left,
-				),
-				set(
-					event.height,
-					sub(global.height, global.tutorial.active.position.bottom, global.tutorial.active.position.top),
-				),
-			])),
+			}) => set(
+				event.position,
+				{
+					top : global.tutorial.active.position.top,
+					right : sub(global.width, global.tutorial.active.position.left),
+					bottom : global.tutorial.active.position.bottom,
+					left : 0,
+				},
+			)),
 		]),
 	]);
 };
