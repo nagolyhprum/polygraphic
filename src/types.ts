@@ -340,7 +340,7 @@ export type NavigationState = {
 export type TutorialState = {
 	width : number;
 	height : number;
-	tutorial : {
+	tutorial?: {
 		isReady : boolean;
 		active : {
 			name : string;

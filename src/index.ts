@@ -1020,50 +1020,75 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 		onInit(({
 			global,
 			setTimeout,
-		}) => block([
-			set(global.tutorial.isReady, false),
-			setTimeout(() => set(global.tutorial.isReady, true), 600),
-		])),
+		}) => declare(({
+			tutorial
+		}) => [
+			set(tutorial.isReady, false),
+			set(global.tutorial, tutorial),
+			setTimeout(() => block([
+				set(tutorial.isReady, true),
+				set(global.tutorial, tutorial),
+			]), 600),
+		], {
+			tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+		})),
 		observe(({
 			global,
 			event,
-		}) => condition(global.tutorial.isReady, set(
-			event.resize,
-			true,
-		))),
+		}) => declare(({
+			tutorial
+		}) => [
+			condition(tutorial.isReady, set(
+				event.resize,
+				true,
+			))
+		], {
+			tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+		})),
 		onResize((onResizeConfig) => {
 			const {
 				event,
 				global,
 			} = onResizeConfig;
-			return condition(
-				and(
-					global.tutorial.isReady, // animations are done
-					not(symbol(global.tutorial.completed, config.name)), // we have not done this one yet
-					or(
-						eq(global.tutorial.active.name, ""), // there is not an active one
-						eq(global.tutorial.active.name, config.name) // or it is this
-					),
-					config.condition(onResizeConfig), // the callee says so
-				), 
-				set(
-					global.tutorial.active,
-					{
-						name : config.name,
-						position : {
-							top : event.y,
-							right : sub(global.width, add(event.x, event.width)),
-							bottom : sub(global.height, add(event.y, event.height)),
-							left : event.x,
-						},
-						text : config.text,
-					},
-				),
-			);
+			return declare(({
+				tutorial
+			}) => [
+				condition(
+					and(
+						tutorial.isReady, // animations are done
+						not(symbol(tutorial.completed, config.name)), // we have not done this one yet
+						or(
+							eq(tutorial.active.name, ""), // there is not an active one
+							eq(tutorial.active.name, config.name) // or it is this
+						),
+						config.condition(onResizeConfig), // the callee says so
+					), 
+					block([
+						set(
+							tutorial.active,
+							{
+								name : config.name,
+								position : {
+									top : event.y,
+									right : sub(global.width, add(event.x, event.width)),
+									bottom : sub(global.height, add(event.y, event.height)),
+									left : event.x,
+								},
+								text : config.text,
+							},
+						),
+						set(global.tutorial, tutorial)
+					])
+				)
+			], {
+				tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+			});
 		}),
-		onClick((onClickConfig) => block([			
-			set(symbol(onClickConfig.global.tutorial.completed, config.name), true),
-			set(onClickConfig.global.tutorial.active, {
+		onClick((onClickConfig) => declare(({
+			tutorial
+		}) => [			
+			set(symbol(tutorial.completed, config.name), true),
+			set(tutorial.active, {
 				name : "",
 				text : "",
 				position : {
@@ -1074,9 +1099,26 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 				},
 			}),
 			config.onClick(onClickConfig),
-		])),
+		], {
+			tutorial : fallback(onClickConfig.global.tutorial, EMPTY_TUTORIAL)
+		})),
 		...config.children,
 	]);
+};
+
+const EMPTY_TUTORIAL : Required<TutorialState>["tutorial"] = {
+	active : {
+		name : "",
+		position : {
+			top : 0,
+			right : 0,
+			bottom : 0,
+			left : 0
+		},
+		text : "",
+	},
+	completed : {},
+	isReady : false
 };
 
 export const tutorial = <Global extends GlobalState & TutorialState, Local>() => {
@@ -1084,9 +1126,11 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		global,
 	} : {
 		global : Global;
-	}) => block([		
-		set(symbol(global.tutorial.completed, global.tutorial.active.name), true),
-		set(global.tutorial.active, {
+	}) => declare(({
+		tutorial
+	}) => [		
+		set(symbol(tutorial.completed, tutorial.active.name), true),
+		set(tutorial.active, {
 			name : "",
 			text : "",
 			position : {
@@ -1096,23 +1140,32 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 				left : 0,
 			},
 		}),
-	]);
+		set(global.tutorial, tutorial)
+	], {
+		tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+	});
 	return stack<Global, Local>(MATCH, MATCH, [
 		observe(({
 			event,
 			global
-		}) => condition(
-			and(global.tutorial.isReady, not(eq(global.tutorial.active.name, ""))), 
-			set(
-				event.opacity,
-				1
+		}) => declare(({
+			tutorial
+		}) => [
+			condition(
+				and(tutorial.isReady, not(eq(tutorial.active.name, ""))), 
+				set(
+					event.opacity,
+					1
+				)
+			).otherwise(
+				set(
+					event.opacity,
+					0
+				)
 			)
-		).otherwise(
-			set(
-				event.opacity,
-				0
-			)
-		)),
+		], {
+			tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+		})),
 		onResize(({
 			global,
 			event,
@@ -1128,22 +1181,28 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		])),
 		onInit(({
 			global,
-		}) => set(
-			global.tutorial, {
-				isReady : false,
-				active : {
-					name : "",
-					position : {
-						bottom : 0,
-						left : 0,
-						right : 0,
-						top : 0,
+		}) => declare(({
+			tutorial
+		}) => [
+			set(
+				global.tutorial, {
+					isReady : false,
+					active : {
+						name : "",
+						position : {
+							bottom : 0,
+							left : 0,
+							right : 0,
+							top : 0,
+						},
+						text : "",
 					},
-					text : "",
+					completed : tutorial.completed,
 				},
-				completed : global.tutorial.completed,
-			},
-		)),
+			)
+		], {
+			tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+		})),
 		clickable(false),
 		position(0),
 		// top
@@ -1154,15 +1213,21 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			observe(({
 				event,			
 				global,
-			}) => set(
-				event.position,
-				{
-					top : 0,
-					right : 0,
-					bottom : sub(global.height, global.tutorial.active.position.top),
-					left : 0
-				}
-			)),
+			}) => declare(({
+				tutorial
+			}) => [
+				set(
+					event.position,
+					{
+						top : 0,
+						right : 0,
+						bottom : sub(global.height, tutorial.active.position.top),
+						left : 0
+					}
+				)
+			], {
+				tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+			})),
 			text(MATCH, WRAP, [
 				align("center"),
 				color("white"),
@@ -1175,16 +1240,20 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 				observe(({
 					event,
 					global,
-				}) => block([
+				}) => declare(({
+					tutorial
+				}) => [
 					set(
 						event.visible,
-						gte(global.tutorial.active.position.top, global.tutorial.active.position.bottom),
+						gte(tutorial.active.position.top, tutorial.active.position.bottom),
 					),
 					set(
 						event.text,
-						global.tutorial.active.text,
+						tutorial.active.text,
 					),
-				])),
+				], {
+					tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+				})),
 			]),
 		]),
 		// right
@@ -1195,15 +1264,21 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			observe(({
 				event,			
 				global,
-			}) => set(
-				event.position,
-				{
-					top : global.tutorial.active.position.top,
-					right : 0,
-					bottom : global.tutorial.active.position.bottom,
-					left : sub(global.width, global.tutorial.active.position.right)
-				},
-			)),
+			}) => declare(({
+				tutorial
+			}) => [
+				set(
+					event.position,
+					{
+						top : tutorial.active.position.top,
+						right : 0,
+						bottom : tutorial.active.position.bottom,
+						left : sub(global.width, tutorial.active.position.right)
+					},
+				)
+			], {
+				tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+			})),
 		]),
 		// bottom
 		stack(WRAP, WRAP, [
@@ -1213,15 +1288,21 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			observe(({
 				event,			
 				global,
-			}) => set(
-				event.position,
-				{
-					top : sub(global.height, global.tutorial.active.position.bottom),
-					right : 0,
-					bottom : 0,
-					left : 0
-				}
-			)),
+			}) => declare(({
+				tutorial
+			}) => [
+				set(
+					event.position,
+					{
+						top : sub(global.height, tutorial.active.position.bottom),
+						right : 0,
+						bottom : 0,
+						left : 0
+					}
+				)
+			], {
+				tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+			})),
 			text(MATCH, WRAP, [
 				align("center"),
 				color("white"),
@@ -1234,16 +1315,20 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 				observe(({
 					event,
 					global,
-				}) => block([
+				}) => declare(({
+					tutorial
+				}) => [
 					set(
 						event.visible,
-						lt(global.tutorial.active.position.top, global.tutorial.active.position.bottom),
+						lt(tutorial.active.position.top, tutorial.active.position.bottom),
 					),
 					set(
 						event.text,
-						global.tutorial.active.text,
+						tutorial.active.text,
 					),
-				])),
+				], {
+					tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+				})),
 			]),
 		]),
 		// left
@@ -1254,15 +1339,21 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			observe(({
 				event,			
 				global,
-			}) => set(
-				event.position,
-				{
-					top : global.tutorial.active.position.top,
-					right : sub(global.width, global.tutorial.active.position.left),
-					bottom : global.tutorial.active.position.bottom,
-					left : 0,
-				},
-			)),
+			}) => declare(({
+				tutorial
+			}) => [
+				set(
+					event.position,
+					{
+						top : tutorial.active.position.top,
+						right : sub(global.width, tutorial.active.position.left),
+						bottom : tutorial.active.position.bottom,
+						left : 0,
+					},
+				)
+			], {
+				tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+			})),
 		]),
 	]);
 };
