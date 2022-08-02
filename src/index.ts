@@ -884,7 +884,7 @@ export const toast = functions("Toast", ({
 				]), timeout)
 			], {
 				now : Date.now(),
-				timeout : 300
+				timeout : 600
 			})
 		).otherwise(
 			set(instance.prev, {
@@ -1016,7 +1016,7 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 			setTimeout,
 		}) => block([
 			set(global.tutorial.isReady, false),
-			setTimeout(() => set(global.tutorial.isReady, true), 300),
+			setTimeout(() => set(global.tutorial.isReady, true), 600),
 		])),
 		observe(({
 			global,
