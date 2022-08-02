@@ -1034,7 +1034,10 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 				and(
 					global.tutorial.isReady, // animations are done
 					not(symbol(global.tutorial.completed, config.name)), // we have not done this one yet
-					eq(global.tutorial.active.name, ""), // there is not an active one
+					or(
+						eq(global.tutorial.active.name, ""), // there is not an active one
+						eq(global.tutorial.active.name, config.name) // or it is this
+					),
 					config.condition(onResizeConfig), // the callee says so
 				), 
 				set(
