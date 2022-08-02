@@ -1126,7 +1126,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		clickable(false),
 		position(0),
 		// top
-		stack(0, 0, [
+		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
 			background("rgba(0, 0, 0, .7)"),
@@ -1167,7 +1167,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			]),
 		]),
 		// right
-		stack(0, 0, [
+		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
 			background("rgba(0, 0, 0, .7)"),
@@ -1185,7 +1185,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			)),
 		]),
 		// bottom
-		stack(MATCH, 0, [
+		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
 			background("rgba(0, 0, 0, .7)"),
@@ -1226,7 +1226,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			]),
 		]),
 		// left
-		stack(0, 0, [
+		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
 			background("rgba(0, 0, 0, .7)"),
