@@ -79,6 +79,12 @@ const picker = {
 const audio = {
 	play : () => {
 		// DO NOTHING
+	},
+	record : () => {
+		// DO NOTHING
+	},
+	stop : () => {
+		// DO NOTHING
 	}
 };
 

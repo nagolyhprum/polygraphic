@@ -82,6 +82,11 @@ export type PolygraphicAudio = {
     play : (config : {
         src : string
     }) => void
+    record : (callback : (config : {
+        blob : Blob
+        url : string
+    }) => ProgrammingLanguage) => ProgrammingLanguage
+    stop : () => ProgrammingLanguage
 }
 
 export type Recaptcha = {
