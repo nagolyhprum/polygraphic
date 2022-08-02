@@ -20,7 +20,10 @@ import {
 	and, 
 	gt, 
 	result,
-	invoke
+	invoke,
+	sub,
+	gte,
+	lt
 } from "polylingual";
 import { EventConfig } from "../dist";
 import { 
@@ -40,7 +43,8 @@ import {
 	Border,
 	NavigationState,
 	AddableComponent,
-	Measurable
+	Measurable,
+	TutorialState
 } from "./types";
 import { writeFile, mkdir } from "fs/promises";
 
@@ -991,3 +995,264 @@ export const media = <T extends Record<string, [number, number]>>(
 			const applied = queries[query] = queries[query] || {};
 			return applyProps(applied, [styles], config);
 		};
+
+export const step = <Global extends GlobalState & TutorialState, Local>(config : {
+	width : Measurable;
+	height : Measurable;
+	name : string;
+	text : string;
+	children : Array<ComponentFromConfig<Global, Local>>;
+	onClick : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage;
+	condition : (config : EventConfig<Global, Local, {
+		x : number;
+		y : number;
+		width : number;
+		height : number;
+	}>) => boolean;
+}) => {
+	return button<Global, Local>(config.width, config.height, [	
+		onInit(({
+			global,
+			setTimeout,
+		}) => block([
+			set(global.tutorial.isReady, false),
+			setTimeout(() => set(global.tutorial.isReady, true), 300),
+		])),
+		observe(({
+			global,
+			event,
+		}) => condition(global.tutorial.isReady, set(
+			event.resize,
+			true,
+		))),
+		onResize((onResizeConfig) => {
+			const {
+				event,
+				global,
+			} = onResizeConfig;
+			return condition(
+				and(
+					global.tutorial.isReady, // animations are done
+					not(symbol(global.tutorial.completed, config.name)), // we have not done this one yet
+					eq(global.tutorial.active.name, ""), // there is not an active one
+					config.condition(onResizeConfig), // the callee says so
+				), 
+				set(
+					global.tutorial.active,
+					{
+						name : config.name,
+						position : {
+							top : event.y,
+							right : sub(global.width, add(event.x, event.width)),
+							bottom : sub(global.height, add(event.y, event.height)),
+							left : event.x,
+						},
+						text : config.text,
+					},
+				),
+			);
+		}),
+		onClick((onClickConfig) => block([			
+			set(symbol(onClickConfig.global.tutorial.completed, config.name), true),
+			set(onClickConfig.global.tutorial.active, {
+				name : "",
+				text : "",
+				position : {
+					top : 0,
+					right : 0,
+					bottom : 0,
+					left : 0,
+				},
+			}),
+			config.onClick(onClickConfig),
+		])),
+		...config.children,
+	]);
+};
+
+export const tutorial = <Global extends GlobalState & TutorialState, Local>() => {
+	const dismiss = ({
+		global,
+	} : {
+		global : Global;
+	}) => block([		
+		set(symbol(global.tutorial.completed, global.tutorial.active.name), true),
+		set(global.tutorial.active, {
+			name : "",
+			text : "",
+			position : {
+				top : 0,
+				right : 0,
+				bottom : 0,
+				left : 0,
+			},
+		}),
+	]);
+	return stack<Global, Local>(MATCH, MATCH, [
+		onResize(({
+			global,
+			event,
+		}) => block([
+			set(
+				global.width,
+				event.width,
+			),
+			set(
+				global.height,
+				event.height,
+			),
+		])),
+		onInit(({
+			global,
+		}) => set(
+			global.tutorial, {
+				isReady : false,
+				active : {
+					name : "",
+					position : {
+						bottom : 0,
+						left : 0,
+						right : 0,
+						top : 0,
+					},
+					text : "",
+				},
+				completed : global.tutorial.completed,
+			},
+		)),
+		clickable(false),
+		position(0),
+		// top
+		stack(MATCH, 0, [
+			onClick(dismiss),
+			clickable(true),
+			position({
+				top : 0,
+				left : 0,
+			}),
+			background("rgba(0, 0, 0, .7)"),
+			observe(({
+				event,			
+				global,
+			}) => set(
+				event.height,
+				global.tutorial.active.position.top,
+			)),
+			text(MATCH, WRAP, [
+				align("center"),
+				color("white"),
+				regular(16),
+				padding(16),
+				position({
+					left : 0,
+					bottom : 0,
+				}),
+				observe(({
+					event,
+					global,
+				}) => block([
+					set(
+						event.visible,
+						gte(global.tutorial.active.position.top, global.tutorial.active.position.bottom),
+					),
+					set(
+						event.text,
+						global.tutorial.active.text,
+					),
+				])),
+			]),
+		]),
+		// right
+		stack(0, 0, [
+			onClick(dismiss),
+			clickable(true),
+			background("rgba(0, 0, 0, .7)"),
+			observe(({
+				event,			
+				global,
+			}) => block([
+				set(
+					event.position,
+					{
+						top : global.tutorial.active.position.top,
+						right : 0,
+					},
+				),
+				set(
+					event.width,
+					global.tutorial.active.position.right,
+				),
+				set(
+					event.height,
+					sub(global.height, global.tutorial.active.position.bottom, global.tutorial.active.position.top),
+				),
+			])),
+		]),
+		// bottom
+		stack(MATCH, 0, [
+			onClick(dismiss),
+			clickable(true),
+			position({
+				bottom : 0,
+				left : 0,
+			}),
+			background("rgba(0, 0, 0, .7)"),
+			observe(({
+				event,			
+				global,
+			}) => set(
+				event.height,
+				global.tutorial.active.position.bottom,
+			)),
+			text(MATCH, WRAP, [
+				align("center"),
+				color("white"),
+				regular(16),
+				padding(16),
+				position({
+					top : 0,
+					left : 0,
+				}),
+				observe(({
+					event,
+					global,
+				}) => block([
+					set(
+						event.visible,
+						lt(global.tutorial.active.position.top, global.tutorial.active.position.bottom),
+					),
+					set(
+						event.text,
+						global.tutorial.active.text,
+					),
+				])),
+			]),
+		]),
+		// left
+		stack(0, 0, [
+			onClick(dismiss),
+			clickable(true),
+			background("rgba(0, 0, 0, .7)"),
+			observe(({
+				event,			
+				global,
+			}) => block([
+				set(
+					event.position,
+					{
+						top : global.tutorial.active.position.top,
+						left : 0,
+					},
+				),
+				set(
+					event.width,
+					global.tutorial.active.position.left,
+				),
+				set(
+					event.height,
+					sub(global.height, global.tutorial.active.position.bottom, global.tutorial.active.position.top),
+				),
+			])),
+		]),
+	]);
+};

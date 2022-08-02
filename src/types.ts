@@ -331,3 +331,24 @@ export type RecursivePartial<T> = {
 export type NavigationState = {
 	routes?: Data[]
 }
+
+export type TutorialState = {
+	width : number;
+	height : number;
+	tutorial : {
+		isReady : boolean;
+		active : {
+			name : string;
+			text : string;
+			position : {
+				top : number;
+				right : number;
+				bottom : number;
+				left : number;
+			};
+		};
+		completed : {
+			[key : string] : boolean;
+		};
+	};
+};
