@@ -673,7 +673,7 @@ export const navigation = functions("Navigation", ({
 		setTimeout(() => set(
 			global.routes,
 			_.slice(fallback(global.routes, []), -1)
-		), 300)
+		), 600)
 	]),
 }));
 
