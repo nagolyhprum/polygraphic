@@ -1092,6 +1092,13 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		}),
 	]);
 	return stack<Global, Local>(MATCH, MATCH, [
+		observe(({
+			event,
+			global
+		}) => set(
+			event.visible,
+			global.tutorial.isReady
+		)),
 		onResize(({
 			global,
 			event,
