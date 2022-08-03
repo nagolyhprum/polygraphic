@@ -1038,7 +1038,10 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 		}) => declare(({
 			tutorial
 		}) => [
-			condition(tutorial.isReady, set(
+			condition(and(
+				tutorial.isReady,
+				eq(config.name, tutorial.active.name)
+			), set(
 				event.resize,
 				true,
 			))
