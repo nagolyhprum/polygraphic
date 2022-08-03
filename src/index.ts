@@ -1023,10 +1023,10 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 		}) => declare(({
 			tutorial
 		}) => [
-			set(tutorial.isReady, false),
+			set(tutorial.step, 0),
 			set(global.tutorial, tutorial),
 			setTimeout(() => block([
-				set(tutorial.isReady, true),
+				set(tutorial.step, 1),
 				set(global.tutorial, tutorial),
 			]), 600),
 		], {
@@ -1040,7 +1040,7 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 		}) => [
 			set(
 				event.resize,
-				tutorial.isReady,
+				tutorial.step,
 			)
 		], {
 			tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
@@ -1055,7 +1055,7 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 			}) => [
 				condition(
 					and(
-						tutorial.isReady, // animations are done
+						not(eq(tutorial.step, 0)), // animations are done
 						not(symbol(tutorial.completed, config.name)), // we have not done this one yet
 						or(
 							eq(tutorial.active.name, ""), // there is not an active one
@@ -1089,8 +1089,8 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 		}) => [			
 			set(symbol(tutorial.completed, config.name), true),
 			set(tutorial.active, EMPTY_TUTORIAL.active),
-			set(tutorial.isReady, false),
-			onClickConfig.setTimeout(() => set(tutorial.isReady, true), 0),
+			set(tutorial.step, add(tutorial.step, 1)),
+			set(onClickConfig.global.tutorial, tutorial),
 			config.onClick(onClickConfig),
 		], {
 			tutorial : fallback(onClickConfig.global.tutorial, EMPTY_TUTORIAL)
@@ -1111,13 +1111,12 @@ const EMPTY_TUTORIAL : Required<TutorialState>["tutorial"] = {
 		text : "",
 	},
 	completed : {},
-	isReady : false
+	step : 0
 };
 
 export const tutorial = <Global extends GlobalState & TutorialState, Local>() => {
 	const dismiss = ({
 		global,
-		setTimeout
 	} : {
 		global : Global;
 		setTimeout : ProgrammingTimeout
@@ -1126,8 +1125,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 	}) => [		
 		set(symbol(tutorial.completed, tutorial.active.name), true),
 		set(tutorial.active, EMPTY_TUTORIAL.active),
-		set(tutorial.isReady, false),
-		setTimeout(() => set(tutorial.isReady, true), 0),
+		set(tutorial.step, add(tutorial.step, 1)),
 		set(global.tutorial, tutorial),
 	], {
 		tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
@@ -1140,7 +1138,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			tutorial
 		}) => [
 			condition(
-				and(tutorial.isReady, not(eq(tutorial.active.name, ""))), 
+				and(not(eq(tutorial.step, 0)), not(eq(tutorial.active.name, ""))), 
 				set(
 					event.opacity,
 					1
@@ -1174,7 +1172,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		}) => [
 			set(
 				global.tutorial, {
-					isReady : false,
+					step : 0,
 					active : EMPTY_TUTORIAL.active,
 					completed : tutorial.completed,
 				},
