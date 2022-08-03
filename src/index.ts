@@ -1088,16 +1088,9 @@ export const step = <Global extends GlobalState & TutorialState, Local>(config :
 			tutorial
 		}) => [			
 			set(symbol(tutorial.completed, config.name), true),
-			set(tutorial.active, {
-				name : "",
-				text : "",
-				position : {
-					top : 0,
-					right : 0,
-					bottom : 0,
-					left : 0,
-				},
-			}),
+			set(tutorial.active, EMPTY_TUTORIAL.active),
+			set(tutorial.isReady, false),
+			onClickConfig.setTimeout(() => set(tutorial.isReady, true), 0),
 			config.onClick(onClickConfig),
 		], {
 			tutorial : fallback(onClickConfig.global.tutorial, EMPTY_TUTORIAL)
@@ -1124,23 +1117,18 @@ const EMPTY_TUTORIAL : Required<TutorialState>["tutorial"] = {
 export const tutorial = <Global extends GlobalState & TutorialState, Local>() => {
 	const dismiss = ({
 		global,
+		setTimeout
 	} : {
 		global : Global;
+		setTimeout : ProgrammingTimeout
 	}) => declare(({
 		tutorial
 	}) => [		
 		set(symbol(tutorial.completed, tutorial.active.name), true),
-		set(tutorial.active, {
-			name : "",
-			text : "",
-			position : {
-				top : 0,
-				right : 0,
-				bottom : 0,
-				left : 0,
-			},
-		}),
-		set(global.tutorial, tutorial)
+		set(tutorial.active, EMPTY_TUTORIAL.active),
+		set(tutorial.isReady, false),
+		setTimeout(() => set(tutorial.isReady, true), 0),
+		set(global.tutorial, tutorial),
 	], {
 		tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
 	});
@@ -1187,16 +1175,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			set(
 				global.tutorial, {
 					isReady : false,
-					active : {
-						name : "",
-						position : {
-							bottom : 0,
-							left : 0,
-							right : 0,
-							top : 0,
-						},
-						text : "",
-					},
+					active : EMPTY_TUTORIAL.active,
 					completed : tutorial.completed,
 				},
 			)
