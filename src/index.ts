@@ -818,7 +818,7 @@ export const Helpers = functions("Helper", ({
 	generateId : () => result(add(Date.now().toString(16), "_", _.slice(Math.random().toString(16), 2))) as unknown as string,
 }));
 
-export const Toaster = functions("Toast", ({
+export const Toaster = functions("Toaster", ({
 	global,
 	_,
 	Date,
@@ -838,7 +838,7 @@ export const Toaster = functions("Toast", ({
 	}) => [
 		set(instance.queue, _.concat(instance.queue, [message])),
 		set(global.toast, instance),
-		toast.nextToast()
+		Toaster.nextToast()
 	], {
 		instance : fallback(global.toast, DEFAULT_TOAST)
 	}),
@@ -886,7 +886,7 @@ export const Toaster = functions("Toast", ({
 				setTimeout(() => block([
 					set(instance.isFree, true),
 					set(global.toast, instance),
-					toast.nextToast()
+					Toaster.nextToast()
 				]), timeout)
 			], {
 				now : Date.now(),
