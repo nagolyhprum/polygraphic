@@ -810,7 +810,7 @@ export type ToasterState = {
 	}
 }
 
-export const helpers = functions("Helper", ({
+export const Helpers = functions("Helper", ({
 	Date,
 	_,
 	Math
@@ -818,7 +818,7 @@ export const helpers = functions("Helper", ({
 	generateId : () => result(add(Date.now().toString(16), "_", _.slice(Math.random().toString(16), 2))) as unknown as string,
 }));
 
-export const toast = functions("Toast", ({
+export const Toaster = functions("Toast", ({
 	global,
 	_,
 	Date,
@@ -869,7 +869,7 @@ export const toast = functions("Toast", ({
 					}
 				}),
 				set(instance.curr, {
-					id : helpers.generateId(),
+					id : Helpers.generateId(),
 					message : fallback(symbol(instance.queue, 0), ""),
 					adapter : "local",
 					animation : {
@@ -946,8 +946,8 @@ export const toaster = <Global extends GlobalState & ToasterState, Local>() => s
 	onInit(({
 		global
 	}) => set(global.toast, DEFAULT_TOAST)),
-	funcs(toast),
-	funcs(helpers),
+	funcs(Toaster),
+	funcs(Helpers),
 	observe(({
 		event,
 		global
@@ -1114,6 +1114,23 @@ const EMPTY_TUTORIAL : Required<TutorialState>["tutorial"] = {
 	step : 0
 };
 
+export const Tutorial = functions("Tutorial", ({
+	global
+} : {
+	global : GlobalState & TutorialState
+}) => ({
+	nextStep : () => declare(({
+		tutorial
+	}) => [
+		set(
+			tutorial.step,
+			add(tutorial.step, 1)
+		)
+	], {
+		tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
+	})
+}));
+
 export const tutorial = <Global extends GlobalState & TutorialState, Local>() => {
 	const dismiss = ({
 		global,
@@ -1131,6 +1148,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
 	});
 	return stack<Global, Local>(MATCH, MATCH, [
+		funcs(Tutorial),
 		observe(({
 			event,
 			global
