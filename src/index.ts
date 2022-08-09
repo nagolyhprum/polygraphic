@@ -76,6 +76,12 @@ const picker = {
 	}
 };
 
+const navigator = {
+	share : () => {
+		// DO NOTHING
+	}
+};
+
 const audio = {
 	play : () => {
 		// DO NOTHING
@@ -100,7 +106,8 @@ export const stubs ={
 	speech,
 	audio,
 	handlebars,
-	recaptcha : recaptchaInstance
+	recaptcha : recaptchaInstance,
+	navigator,
 };
 
 export const generateId = () => `_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;

@@ -95,7 +95,17 @@ export type Recaptcha = {
     }) => ProgrammingLanguage) => ProgrammingLanguage
 }
 
+export type Navigator = {
+    share : (config : {
+        url?: string
+        title?: string
+        text?: string
+        file?: File
+    }) => ProgrammingLanguage
+}
+
 export type EventConfig<Global extends GlobalState, Local, Type> = {
+    navigator : Navigator
     recaptcha : Recaptcha
     Math : Math
     setTimeout: ProgrammingTimeout
