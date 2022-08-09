@@ -95,7 +95,7 @@ export type Recaptcha = {
     }) => ProgrammingLanguage) => ProgrammingLanguage
 }
 
-export type Navigator = {
+export type Device = {
     share : (config : {
         url?: string
         title?: string
@@ -105,7 +105,7 @@ export type Navigator = {
 }
 
 export type EventConfig<Global extends GlobalState, Local, Type> = {
-    navigator : Navigator
+    device : Device
     recaptcha : Recaptcha
     Math : Math
     setTimeout: ProgrammingTimeout

@@ -76,7 +76,7 @@ const picker = {
 	}
 };
 
-const navigator = {
+const device = {
 	share : () => {
 		// DO NOTHING
 	}
