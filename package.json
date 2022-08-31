@@ -35,6 +35,6 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "polylingual": "^0.72.0"
+    "polylingual": "^0.73.0"
   }
 }
