@@ -1,4 +1,4 @@
-import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage, ProgrammingDate, ProgrammingTimeout, ProgrammingNamedTimeout } from "polylingual";
+import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage, ProgrammingDate, ProgrammingTimeout, ProgrammingNamedTimeout, ProgrammingBaseScope } from "polylingual";
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
@@ -107,28 +107,19 @@ export type Device = {
 export type EventConfig<Global extends GlobalState, Local, Type> = {
     device : Device
     recaptcha : Recaptcha
-    Math : Math
-    setTimeout: ProgrammingTimeout
-    debounce: ProgrammingNamedTimeout
-    throttle: ProgrammingNamedTimeout
-    Date : ProgrammingDate
     local : Local
     global : Global
     event : Type
     index : number
-    _ : ProgrammingUnderscore
-    console : ProgrammingConsole
-    fetch : ProgrammingFetch
-    JSON : ProgrammingJSON
-
+    
     socket : PolygraphicSocket
     speech : PolygraphicSpeech
     picker : PolygraphicPicker
     moment : PolygraphicMoment
     audio : PolygraphicAudio
-
+    
     handlebars : PolygraphicHandleBars
-}
+} & ProgrammingBaseScope
 
 type PolygraphicHandleBars = (template : string, data : unknown) => string
 
