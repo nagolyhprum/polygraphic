@@ -308,6 +308,7 @@ export const bundle = setProperty("bundle");
 export const title = setProperty("title");
 export const translate = setProperty("translate");
 export const rotate = setProperty("rotate");
+export const font = setProperty("font");
 
 const setFont = (weight : number) => <Global extends GlobalState, Local>(size : number) : ComponentFromConfig<Global, Local> => (config) => {
 	config.parent.weight = weight;

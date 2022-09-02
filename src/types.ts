@@ -254,6 +254,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     recaptcha?: string
     draw?: Drawing
     resize?: number
+    font?: string
 }
 
 export type DrawingPosition = {
