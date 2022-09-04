@@ -310,13 +310,16 @@ export const translate = setProperty("translate");
 export const rotate = setProperty("rotate");
 export const font = setProperty("font");
 
-export const hover = <Global extends GlobalState, Local>() : ComponentFromConfig<Global, Local> => {
+export const hover = <Global extends GlobalState, Local>(
+	hover : ComponentFromConfig<Global, Local>
+) : ComponentFromConfig<Global, Local> => {
 	const id = generateId();
 	const childId = generateId();
 	return ({
 		parent
 	}) => {
 		parent.id = parent.id || id;
+		parent.hover = hover;
 		parent.children?.forEach(child => {
 			child.id = child.id || childId;
 		});
