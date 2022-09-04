@@ -255,6 +255,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     draw?: Drawing
     resize?: number
     font?: string
+    hover?: ComponentFromConfig<Global, Local>
 }
 
 export type DrawingPosition = {
