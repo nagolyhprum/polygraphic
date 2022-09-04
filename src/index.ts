@@ -321,12 +321,17 @@ export const hover = <Global extends GlobalState, Local>(
 		parent,
 	}) => {
 		parent.id = parent.id || id;
-		parent.hover = hover({
+		const value = hover({
 			global,
 			local,
-			parent
+			parent: {
+				name : "root",
+				width : "",
+				height : ""
+			}
 		});
-		parent.hover.children?.forEach(child => {
+		parent.hover = value.children?.[0];
+		parent.hover?.children?.forEach(child => {
 			child.id = child.id || childId;
 		});
 		return parent;
