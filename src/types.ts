@@ -225,7 +225,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     clickable?: boolean
     bundle?: string[]
     whitespace?: "nowrap" | "normal" | "pre" | "pre-wrap"
-    align?: Alignment
+    align?: Alignment | "justify"
     href?: string
     target?: string
     title?: string
