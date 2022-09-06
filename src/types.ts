@@ -256,6 +256,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     resize?: number
     font?: string
     hover?: Component<Global, Local>
+    textCase?: "uppercase" | "lowercase" | "capitalize"
 }
 
 export type DrawingPosition = {
