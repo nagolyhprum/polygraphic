@@ -1,4 +1,4 @@
-import { ProgrammingUnderscore, ProgrammingConsole, ProgrammingFetch, ProgrammingJSON, ProgrammingLanguage, ProgrammingDate, ProgrammingTimeout, ProgrammingNamedTimeout, ProgrammingBaseScope } from "polylingual";
+import { ProgrammingLanguage, ProgrammingBaseScope } from "polylingual";
 
 export type Unarray<T> = T extends Array<infer U> ? U : T;
 
@@ -257,6 +257,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     font?: string
     hover?: Component<Global, Local>
     textCase?: "uppercase" | "lowercase" | "capitalize"
+    theme?: Theme
 }
 
 export type DrawingPosition = {
@@ -359,5 +360,30 @@ export type TutorialState = {
 		completed : {
 			[key : string] : boolean;
 		};
+	};
+};
+
+export type Theme = {
+	error : string;
+	overlay : string;
+	white : string;
+	black : string;
+	background : string;
+	text : string;
+	link : string;
+	icon : string;
+	light : {
+		primary : string;
+		secondary : string;
+		tertiary : string;
+		divider : string;
+		accent : string;
+	};
+	dark : {
+		primary : string;
+		secondary : string;
+		tertiary : string;
+		divider : string;
+		accent : string;
 	};
 };

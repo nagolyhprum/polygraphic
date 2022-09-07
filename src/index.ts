@@ -310,6 +310,7 @@ export const translate = setProperty("translate");
 export const rotate = setProperty("rotate");
 export const font = setProperty("font");
 export const textCase = setProperty("textCase");
+export const theme = setProperty("theme");
 
 export const hover = <Global extends GlobalState, Local>(
 	hover : ComponentFromConfig<Global, Local>
