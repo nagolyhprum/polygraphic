@@ -430,6 +430,23 @@ export const onContext : <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
 ) => ComponentFromConfig<Global, Local> = event("onContext");
 
+
+export const onWebSocketMessage : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, {
+		name : string
+		data : any
+	}>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onWebSocketMessage");
+export const onWebSocketOpen : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onWebSocketOpen");
+export const onWebSocketClose : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, null>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onWebSocketClose");
+export const onWebSocketError : <Global extends GlobalState, Local>(
+	callback : (event : EventConfig<Global, Local, Error>) => ProgrammingLanguage
+) => ComponentFromConfig<Global, Local> = event("onWebSocketError");
+
 export const bind = <Global extends GlobalState, Local>(
 	callback : (event : EventConfig<Global, Local, unknown>) => string | boolean | number | null | undefined
 ) => props<Global, Local>([
