@@ -25,7 +25,6 @@ import {
 	gte,
 	lt
 } from "polylingual";
-import { EventConfig } from "../dist";
 import { 
 	Animation,
 	Alignment,
@@ -44,7 +43,8 @@ import {
 	NavigationState,
 	AddableComponent,
 	Measurable,
-	TutorialState
+	TutorialState,
+	EventConfig
 } from "./types";
 import { writeFile, mkdir } from "fs/promises";
 
