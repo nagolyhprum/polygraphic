@@ -100,6 +100,12 @@ const recaptchaInstance = {
 	}
 };
 
+const socket = {
+	send : () => {
+		// DO NOTHING
+	}
+};
+
 export const stubs ={
 	moment,
 	picker,
@@ -108,6 +114,7 @@ export const stubs ={
 	handlebars,
 	recaptcha : recaptchaInstance,
 	device,
+	socket,
 };
 
 export const generateId = () => `_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
@@ -311,6 +318,7 @@ export const rotate = setProperty("rotate");
 export const font = setProperty("font");
 export const textCase = setProperty("textCase");
 export const theme = setProperty("theme");
+export const websocket = setProperty("websocket");
 
 export const hover = <Global extends GlobalState, Local>(
 	hover : ComponentFromConfig<Global, Local>
@@ -660,11 +668,6 @@ export const functions = <T>(
 		global : {}, 
 		event: {}, 
 		index:0,
-		socket : {
-			on : () => {
-				// DO NOTHING
-			}
-		},
 		...stubs
 	});
 };

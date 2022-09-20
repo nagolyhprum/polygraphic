@@ -41,7 +41,7 @@ export type GlobalState = {
 }
 
 export type PolygraphicSocket = {
-    on : (name : string, callback : (config : { data : any }) => ProgrammingLanguage) => ProgrammingLanguage
+    send : (name : string, message : unknown) => ProgrammingLanguage
 }
 
 export type PolygraphicSpeech = {
@@ -124,6 +124,14 @@ export type EventConfig<Global extends GlobalState, Local, Type> = {
 type PolygraphicHandleBars = (template : string, data : unknown) => string
 
 export type ComponentEvents<Global extends GlobalState, Local> = {
+    onWebSocketOpen?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onWebSocketMessage?: Array<(event : EventConfig<Global, Local, {
+        name : string
+        data : any
+    }>) => ProgrammingLanguage>
+    onWebSocketClose?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
+    onWebSocketError?: Array<(event : EventConfig<Global, Local, Error>) => ProgrammingLanguage>
+
     observe?: Array<(event : EventConfig<Global, Local, Component<Global, Local>>) => ProgrammingLanguage>
     onBack?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
     onContext?: Array<(event : EventConfig<Global, Local, null>) => ProgrammingLanguage>
@@ -258,6 +266,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     hover?: Component<Global, Local>
     textCase?: "uppercase" | "lowercase" | "capitalize"
     theme?: Theme
+    websocket?: string
 }
 
 export type DrawingPosition = {
