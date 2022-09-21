@@ -269,6 +269,8 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     websocket?: string
     ld?: unknown
     layout?: "responsive" | "fixed-height" | "nodisplay" | "fixed" | "fill" | "container" | "flex-item" | "intrinsic"
+    on?: string
+    drawer?: ComponentFromConfig<Global, Local>
 }
 
 export type DrawingPosition = {
