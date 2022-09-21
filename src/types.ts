@@ -268,6 +268,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     theme?: Theme
     websocket?: string
     ld?: unknown
+    layout?: "responsive" | "fixed-height" | "nodisplay" | "fixed" | "fill" | "container" | "flex-item" | "intrinsic"
 }
 
 export type DrawingPosition = {

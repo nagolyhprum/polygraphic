@@ -320,6 +320,7 @@ export const textCase = setProperty("textCase");
 export const theme = setProperty("theme");
 export const websocket = setProperty("websocket");
 export const ld = setProperty("ld");
+export const layout = setProperty("layout");
 
 export const hover = <Global extends GlobalState, Local>(
 	hover : ComponentFromConfig<Global, Local>
