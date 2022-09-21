@@ -322,7 +322,6 @@ export const websocket = setProperty("websocket");
 export const ld = setProperty("ld");
 export const layout = setProperty("layout");
 export const on = setProperty("on");
-export const drawer = setProperty("drawer");
 
 export const hover = <Global extends GlobalState, Local>(
 	hover : ComponentFromConfig<Global, Local>
@@ -345,6 +344,33 @@ export const hover = <Global extends GlobalState, Local>(
 			}
 		});
 		parent.hover = value;
+		value.children?.forEach(child => {
+			child.id = child.id || childId;
+		});
+		return parent;
+	};
+};
+export const drawer = <Global extends GlobalState, Local>(
+	drawer : ComponentFromConfig<Global, Local>
+) : ComponentFromConfig<Global, Local> => {
+	const id = generateId();
+	const childId = generateId();
+	return ({
+		global,
+		local,
+		parent,
+	}) => {
+		parent.id = parent.id || id;
+		const value = drawer({
+			global,
+			local,
+			parent: {
+				name : "root",
+				width : "",
+				height : ""
+			}
+		});
+		parent.drawer = value;
 		value.children?.forEach(child => {
 			child.id = child.id || childId;
 		});

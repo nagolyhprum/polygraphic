@@ -270,7 +270,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     ld?: unknown
     layout?: "responsive" | "fixed-height" | "nodisplay" | "fixed" | "fill" | "container" | "flex-item" | "intrinsic"
     on?: string
-    drawer?: ComponentFromConfig<Global, Local>
+    drawer?: Component<Global, Local>
 }
 
 export type DrawingPosition = {
