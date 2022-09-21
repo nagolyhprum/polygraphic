@@ -267,6 +267,7 @@ export type Component<Global extends GlobalState, Local> = ComponentBoxProps & C
     textCase?: "uppercase" | "lowercase" | "capitalize"
     theme?: Theme
     websocket?: string
+    ld?: unknown
 }
 
 export type DrawingPosition = {

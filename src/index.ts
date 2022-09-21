@@ -319,6 +319,7 @@ export const font = setProperty("font");
 export const textCase = setProperty("textCase");
 export const theme = setProperty("theme");
 export const websocket = setProperty("websocket");
+export const ld = setProperty("ld");
 
 export const hover = <Global extends GlobalState, Local>(
 	hover : ComponentFromConfig<Global, Local>
