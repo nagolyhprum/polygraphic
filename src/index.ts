@@ -376,27 +376,25 @@ export const createTheme = (theme : Partial<Theme>) : Theme => ({
 	...theme,
 });
 
-export const color = <Global extends GlobalState & {
-	theme : Theme;
-}, Local>(
-		color : (theme : Theme) => string,
-	) : ComponentFromConfig<Global, Local> => ({
+const DEFAULT_THEME = createTheme({});
+
+export const color = <Global extends GlobalState, Local>(
+	color : (theme : Theme) => string,
+) : ComponentFromConfig<Global, Local> => ({
 		global,
 		parent,
 	}) => {
-		parent.color = color(global.theme);
+		parent.color = color(global.theme || DEFAULT_THEME);
 		return parent;
 	};
 
-export const background = <Global extends GlobalState & {
-	theme : Theme;
-}, Local>(
-		background : (theme : Theme) => string,
-	) : ComponentFromConfig<Global, Local> => ({
+export const background = <Global extends GlobalState, Local>(
+	background : (theme : Theme) => string,
+) : ComponentFromConfig<Global, Local> => ({
 		global,
 		parent,
 	}) => {
-		parent.background = background(global.theme);
+		parent.background = background(global.theme || DEFAULT_THEME);
 		return parent;
 	};
 
