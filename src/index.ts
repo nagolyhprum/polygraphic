@@ -23,7 +23,8 @@ import {
 	invoke,
 	sub,
 	gte,
-	lt
+	lt,
+	defined
 } from "polylingual";
 import { 
 	Animation,
@@ -324,32 +325,30 @@ export const on = setProperty("on");
 export const setColor = setProperty("color");
 export const setBackground = setProperty("background");
 
-export const clientOnly = <Global extends GlobalState & {
-	isClient : boolean;
-}, Local>(
-		children : ComponentFromConfig<Global, Local>,
-	) => flex<Global, Local>(WRAP, WRAP, [	
-		observe(({
-			global,
-			event,
-			local,
-			_,
-		}) => condition(
-			global.isClient,
-			set(
-				event.data,
-				[_.assign<Data>(local as any, {
-					adapter : "local",
-				})],
-			),
-		).otherwise(set(
+export const clientOnly = <Global extends GlobalState, Local>(
+	children : ComponentFromConfig<Global, Local>,
+) => flex<Global, Local>(WRAP, WRAP, [	
+	observe(({
+		global,
+		event,
+		local,
+		_,
+	}) => condition(
+		defined(global.isClient),
+		set(
 			event.data,
-			[],
-		))),
-		adapters({
-			local : children,
-		}),
-	]);
+			[_.assign<Data>(local as any, {
+				adapter : "local",
+			})],
+		),
+	).otherwise(set(
+		event.data,
+		[],
+	))),
+	adapters({
+		local : children,
+	}),
+]);
 
 export const createTheme = (theme : Partial<Theme>) : Theme => ({
 	error : "red",
