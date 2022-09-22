@@ -376,7 +376,7 @@ export const createTheme = (theme : Partial<Theme>) : Theme => ({
 	...theme,
 });
 
-const DEFAULT_THEME = createTheme({});
+export const DEFAULT_THEME = createTheme({});
 
 export const color = <Global extends GlobalState, Local>(
 	color : (theme : Theme) => string,
