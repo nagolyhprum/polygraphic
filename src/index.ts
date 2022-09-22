@@ -23,8 +23,7 @@ import {
 	invoke,
 	sub,
 	gte,
-	lt,
-	defined
+	lt
 } from "polylingual";
 import { 
 	Animation,
@@ -334,7 +333,7 @@ export const clientOnly = <Global extends GlobalState, Local>(
 		local,
 		_,
 	}) => condition(
-		defined(global.isClient),
+		eq(global.isClient, true),
 		set(
 			event.data,
 			[_.assign<Data>(local as any, {
