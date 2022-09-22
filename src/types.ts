@@ -33,6 +33,9 @@ export type Tag =
     
 
 export type GlobalState = {
+    theme?: Theme
+    isClient?: boolean
+    isDrawerOpen?: boolean
     ui?: {
         [key : string] : any
     }

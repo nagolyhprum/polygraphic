@@ -44,7 +44,8 @@ import {
 	AddableComponent,
 	Measurable,
 	TutorialState,
-	EventConfig
+	EventConfig,
+	Theme
 } from "./types";
 import { writeFile, mkdir } from "fs/promises";
 
@@ -292,7 +293,6 @@ export const direction = setProperty("direction");
 export const href = setProperty("href");
 export const target = setProperty("target");
 export const whitespace = setProperty("whitespace");
-export const background = setProperty("background");
 export const grow = setProperty("grow");
 export const value = setProperty("value");
 export const animation = setProperty("animation");
@@ -300,7 +300,6 @@ export const align = setProperty("align");
 export const mainAxisAlignment = setProperty("mainAxisAlignment");
 export const crossAxisAlignment = setProperty("crossAxisAlignment");
 export const size = setProperty("size");
-export const color = setProperty("color");
 export const src = setProperty("src");
 export const round = setProperty("round");
 export const placeholder = setProperty("placeholder");
@@ -322,6 +321,85 @@ export const websocket = setProperty("websocket");
 export const ld = setProperty("ld");
 export const layout = setProperty("layout");
 export const on = setProperty("on");
+export const setColor = setProperty("color");
+export const setBackground = setProperty("background");
+
+export const clientOnly = <Global extends GlobalState & {
+	isClient : boolean;
+}, Local>(
+		children : ComponentFromConfig<Global, Local>,
+	) => flex<Global, Local>(WRAP, WRAP, [	
+		observe(({
+			global,
+			event,
+			local,
+			_,
+		}) => condition(
+			global.isClient,
+			set(
+				event.data,
+				[_.assign<Data>(local as any, {
+					adapter : "local",
+				})],
+			),
+		).otherwise(set(
+			event.data,
+			[],
+		))),
+		adapters({
+			local : children,
+		}),
+	]);
+
+export const createTheme = (theme : Partial<Theme>) : Theme => ({
+	error : "red",
+	overlay : "rgba(0, 0, 0, 0.7)",
+	black : "black",
+	white : "white",
+	icon : "white",
+	link : "#2278cf",
+	text : "white",
+	background : "white",
+	dark : {
+		accent : "black",
+		primary : "#212121",
+		secondary : "#333333",
+		tertiary : "#545454",
+		divider : "#ededed",
+	},
+	light : {
+		accent : "black",
+		primary : "#212121",
+		secondary : "#333333",
+		tertiary : "#545454",
+		divider : "white",
+	},
+	...theme,
+});
+
+export const color = <Global extends GlobalState & {
+	theme : Theme;
+}, Local>(
+		color : (theme : Theme) => string,
+	) : ComponentFromConfig<Global, Local> => ({
+		global,
+		parent,
+	}) => {
+		parent.color = color(global.theme);
+		return parent;
+	};
+
+export const background = <Global extends GlobalState & {
+	theme : Theme;
+}, Local>(
+		background : (theme : Theme) => string,
+	) : ComponentFromConfig<Global, Local> => ({
+		global,
+		parent,
+	}) => {
+		parent.background = background(global.theme);
+		return parent;
+	};
 
 export const hover = <Global extends GlobalState, Local>(
 	hover : ComponentFromConfig<Global, Local>
@@ -668,7 +746,7 @@ export const modal = <Global extends GlobalState>(
 		top : 0,
 		left : 0
 	}),
-	background("#000000aa"),
+	setBackground("#000000aa"),
 	observe(({
 		event,
 		local
@@ -678,7 +756,7 @@ export const modal = <Global extends GlobalState>(
 		start : local.animation.start,
 	})),	
 	stack(MATCH, WRAP, [
-		background("white"),
+		setBackground("white"),
 		round(4),
 		child,
 	])
@@ -1013,8 +1091,8 @@ const toasterItem = <Global extends GlobalState & ToasterState>() => column<Glob
 	])),
 	text(MATCH, WRAP, [
 		opacity(.9),
-		background("black"),
-		color("white"),
+		setBackground("black"),
+		setColor("white"),
 		padding(16),
 		observe(({
 			local,
@@ -1292,7 +1370,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
-			background("rgba(0, 0, 0, .7)"),
+			setBackground("rgba(0, 0, 0, .7)"),
 			observe(({
 				event,			
 				global,
@@ -1313,7 +1391,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			})),
 			text(MATCH, WRAP, [
 				align("center"),
-				color("white"),
+				setColor("white"),
 				regular(16),
 				padding(16),
 				position({
@@ -1343,7 +1421,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
-			background("rgba(0, 0, 0, .7)"),
+			setBackground("rgba(0, 0, 0, .7)"),
 			observe(({
 				event,			
 				global,
@@ -1367,7 +1445,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
-			background("rgba(0, 0, 0, .7)"),
+			setBackground("rgba(0, 0, 0, .7)"),
 			observe(({
 				event,			
 				global,
@@ -1388,7 +1466,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			})),
 			text(MATCH, WRAP, [
 				align("center"),
-				color("white"),
+				setColor("white"),
 				regular(16),
 				padding(16),
 				position({
@@ -1418,7 +1496,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		stack(WRAP, WRAP, [
 			onClick(dismiss),
 			clickable(true),
-			background("rgba(0, 0, 0, .7)"),
+			setBackground("rgba(0, 0, 0, .7)"),
 			observe(({
 				event,			
 				global,
@@ -1439,4 +1517,11 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 			})),
 		]),
 	]);
+};
+
+export const indexes = {
+	header : 5,
+	drawer : 10,
+	buttons : 100,
+	modal : 1000,
 };
