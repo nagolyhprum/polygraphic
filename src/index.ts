@@ -1364,6 +1364,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		position(0),
 		// top
 		stack(WRAP, WRAP, [
+			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
@@ -1415,6 +1416,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		]),
 		// right
 		stack(WRAP, WRAP, [
+			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
@@ -1439,6 +1441,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		]),
 		// bottom
 		stack(WRAP, WRAP, [
+			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
@@ -1490,6 +1493,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		]),
 		// left
 		stack(WRAP, WRAP, [
+			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
@@ -1520,4 +1524,5 @@ export const indexes = {
 	drawer : 10,
 	buttons : 100,
 	modal : 1000,
+	tutorial : 1500
 };
