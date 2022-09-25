@@ -1310,6 +1310,7 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		tutorial : fallback(global.tutorial, EMPTY_TUTORIAL)
 	});
 	return stack<Global, Local>(MATCH, MATCH, [
+		index(indexes.tutorial),
 		funcs(Tutorial),
 		observe(({
 			event,
@@ -1364,7 +1365,6 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		position(0),
 		// top
 		stack(WRAP, WRAP, [
-			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
@@ -1416,7 +1416,6 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		]),
 		// right
 		stack(WRAP, WRAP, [
-			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
@@ -1441,7 +1440,6 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		]),
 		// bottom
 		stack(WRAP, WRAP, [
-			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
@@ -1493,7 +1491,6 @@ export const tutorial = <Global extends GlobalState & TutorialState, Local>() =>
 		]),
 		// left
 		stack(WRAP, WRAP, [
-			index(indexes.tutorial),
 			onClick(dismiss),
 			clickable(true),
 			setBackground("rgba(0, 0, 0, .7)"),
