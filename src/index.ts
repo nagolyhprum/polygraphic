@@ -1100,6 +1100,7 @@ const toasterItem = <Global extends GlobalState & ToasterState>() => column<Glob
 ]);
 
 export const toaster = <Global extends GlobalState & ToasterState, Local>() => stack<Global, Local>(MATCH, WRAP, [
+	index(indexes.toaster),
 	clickable(false),
 	id("toaster"),
 	position({
@@ -1521,5 +1522,6 @@ export const indexes = {
 	drawer : 10,
 	buttons : 100,
 	modal : 1000,
-	tutorial : 1500
+	tutorial : 1500,
+	toaster : 2000
 };
